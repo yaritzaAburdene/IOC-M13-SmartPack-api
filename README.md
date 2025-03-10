@@ -1,43 +1,42 @@
 # SmartPack API - IOC M13
 
-## 📦 Descripción
+## 📦 Descripció
 
-SmartPack es una API desarrollada en Java con Spring Boot para gestionar envíos de paquetería de manera eficiente. Permite la gestión de usuarios, paquetes, transportistas y seguimiento de entregas.
+SmartPack és una API desenvolupada a Java amb Spring Boot per a gestionar enviaments de paqueteria de manera eficient. Permet la gestió d'usuaris, paquets, transportistes i seguiment de lliuraments.
 
-## 🚀 Tecnologías Utilizadas
+## 🚀 Tecnologies Utilitzades
 
 - Java 17
 - Spring Boot
 - MySQL
-- JPA/Hibernate
+- JPA/*Hibernate
 - REST API
 
-## 📥 Instalación
+## 📥 Instal·lació
 
-1. Clonar el repositorio:
-   ```bash
-   git clone https://github.com/tu-usuario/IOC-M13-SmartPack-api.git
-   cd IOC-M13-SmartPack-api
-   ```
-2. Configurar la base de datos en `application.properties`.
-3. Ejecutar la aplicación con:
-   ```bash
-   mvn spring-boot:run
-   ```
+1. Clonar el repositori:
+```bash
+git cloni https://github.com/tu-usuario/ioc-m13-smartpack-api.git
+cd IOC-M13-*SmartPack-*api
+```
+2. Configurar la base de dades en `application.properties`.
+3. Executar l'aplicació amb:
+```bash
+mvn spring-*boot:run
+```
 
-## 📡 Endpoints Básicos
+## 📡 Endpoints Bàsics
 
-- `POST /auth/login` - Autenticación de usuarios.
-- `GET /paquetes/{id}` - Obtener detalles de un paquete.
-- `POST /paquetes` - Crear un nuevo paquete.
-- `PUT /paquetes/{id}` - Actualizar un paquete.
-- `DELETE /paquetes/{id}` - Eliminar un paquete.
+- `POST /auth/*login` - Autenticació d'usuaris.
+- `GET /paquets/{aneu}` - Obtenir detalls d'un paquet.
+- `POST /paquets` - Crear un nou paquet.
+- `PUT /paquets/{aneu}` - Actualitzar un paquet.
+- `DELETE /paquets/{aneu}` - Eliminar un paquet.
 
-## 📜 Licencia
+## 📜 Llicència
 
-Este proyecto está bajo la licencia MIT. Consulta el archivo `LICENSE` para más detalles.
+Aquest projecte està sota la llicència MIT. Consulta l'arxiu `LICENSE` per a més detalls.
 
 ---
 
-📌 **Nota:** Este proyecto forma parte de la asignatura M13 del IOC y está en desarrollo.
-
+📌 *Nota:* Aquest projecte forma part de l'assignatura M13 del IOC i està en desenvolupament.
