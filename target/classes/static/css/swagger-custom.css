@@ -1,0 +1,20 @@
+/* Cambiar color de fondo de la barra superior */
+.topbar-wrapper {
+    background-color: #3498db !important; /* Cambia este color */
+}
+
+/* Cambiar el color del título */
+.topbar .download-url-wrapper input[type="text"] {
+    color: white !important;
+}
+
+/* Cambiar color del botón Try It Out */
+.btn.try-out__btn {
+    background-color: #27ae60 !important;
+    color: white !important;
+}
+
+/* Cambiar el color de los botones Execute */
+.btn.execute {
+    background-color: #e67e22 !important;
+}

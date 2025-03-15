@@ -1,27 +1,31 @@
 package com.smartpack.services;
 
+import com.smartpack.models.Rol;
 import com.smartpack.models.Usuari;
-import com.smartpack.repositories.UsuarioRepository;
+import com.smartpack.repositories.UsuariRepository;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.Optional;
 
 
 @Service
 public class UsuariService {
     @Autowired
-    private UsuarioRepository usuarioRepository;
+    private UsuariRepository usuariRepository;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
 
-    public Optional<Usuari> obtenerPorEmail(String email) {
-        return usuarioRepository.findByEmail(email);
+    public UsuariService(UsuariRepository usuariRepository) {
+        this.usuariRepository = usuariRepository;
     }
 
-    public Usuari registrarUsuario(Usuari usuario) {
-        usuario.setPassword(passwordEncoder.encode(usuario.getPassword())); // Encripta la contraseña
-        return usuarioRepository.save(usuario);
+     public List<Usuari> allUsers() {
+        List<Usuari> users = new ArrayList<>();
+
+        usuariRepository.findAll().forEach(users::add);
+
+        return users;
     }
 }

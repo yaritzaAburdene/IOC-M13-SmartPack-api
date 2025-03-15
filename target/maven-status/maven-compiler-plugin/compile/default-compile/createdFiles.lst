@@ -1,0 +1,16 @@
+com\smartpack\config\JwtAuthenticationFilter.class
+com\smartpack\dto\RegistrarUsuariDto.class
+com\smartpack\smartpack_api\SmartpackApiApplication.class
+com\smartpack\repositories\UsuariRepository.class
+com\smartpack\config\OpenAPIConfig.class
+com\smartpack\config\ApplicationConfiguration.class
+com\smartpack\dto\LoginUsuariDto.class
+com\smartpack\services\JwtService.class
+com\smartpack\services\AuthenticationService.class
+com\smartpack\config\SecurityConfig.class
+com\smartpack\utils\LoginResponse.class
+com\smartpack\models\Usuari.class
+com\smartpack\services\UsuariService.class
+com\smartpack\controllers\AuthController.class
+com\smartpack\controllers\InitController.class
+com\smartpack\models\Rol.class

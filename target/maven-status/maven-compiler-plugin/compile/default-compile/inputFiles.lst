@@ -1,5 +1,16 @@
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\config\ApplicationConfiguration.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\config\JwtAuthenticationFilter.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\config\OpenAPIConfig.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\config\SecurityConfig.java
 C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\controllers\AuthController.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\controllers\InitController.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\dto\LoginUsuariDto.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\dto\RegistrarUsuariDto.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\models\Rol.java
 C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\models\Usuari.java
-C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\repositories\UsuarioRepository.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\repositories\UsuariRepository.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\services\AuthenticationService.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\services\JwtService.java
 C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\services\UsuariService.java
 C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\smartpack_api\SmartpackApiApplication.java
+C:\Users\gloom\projects\smartpack-api\src\main\java\com\smartpack\utils\LoginResponse.java
