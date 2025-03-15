@@ -5,17 +5,10 @@ import com.smartpack.dto.RegistrarUsuariDto;
 import com.smartpack.models.Usuari;
 import com.smartpack.services.AuthenticationService;
 import com.smartpack.services.JwtService;
-import com.smartpack.services.UsuariService;
 import com.smartpack.utils.LoginResponse;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Optional;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import io.swagger.v3.oas.annotations.Operation;

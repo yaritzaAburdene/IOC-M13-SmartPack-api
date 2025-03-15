@@ -17,12 +17,12 @@ SmartPack és una API desenvolupada a Java amb Spring Boot per a gestionar envia
 1. Clonar el repositori:
 ```bash
 git clone https://github.com/tu-usuario/ioc-m13-smartpack-api.git
-cd IOC-M13-*SmartPack-*api
+cd IOC-M13-SmartPack-api
 ```
 2. Configurar la base de dades en `application.properties`.
 3. Executar l'aplicació amb:
 ```bash
-mvn spring-*boot:run
+mvn spring-boot:run
 ```
 
 ## 📡 Endpoints Bàsics
