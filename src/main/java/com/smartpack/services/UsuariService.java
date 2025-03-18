@@ -1,6 +1,5 @@
 package com.smartpack.services;
 
-import com.smartpack.models.Rol;
 import com.smartpack.models.Usuari;
 import com.smartpack.repositories.UsuariRepository;
 

@@ -1,5 +1,5 @@
 package com.smartpack.models;
 
 public enum Rol {
-    ADMIN, USER
+    ADMIN, USER, DELIVERYMAN  
 }

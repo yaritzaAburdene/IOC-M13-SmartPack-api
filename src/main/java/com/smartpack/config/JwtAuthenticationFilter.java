@@ -36,10 +36,6 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         this.handlerExceptionResolver = handlerExceptionResolver;
     }
 
-    @Override
-    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
-        return request.getServletPath().startsWith("/auth/");
-    }
 
     @Override
     protected void doFilterInternal(

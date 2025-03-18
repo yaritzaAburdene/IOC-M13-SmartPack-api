@@ -1,6 +1,5 @@
 package com.smartpack.models;
 
-import com.smartpack.models.Rol;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,6 +29,9 @@ public class Usuari implements UserDetails{
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Rol role;
+
+    @Column(name = "reset_token") 
+    private String resetToken;
     
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
@@ -65,6 +67,7 @@ public class Usuari implements UserDetails{
     public void setRole(Rol role) {
         this.role = role;
     }
+  
     
     @Override
     public String getUsername() {
