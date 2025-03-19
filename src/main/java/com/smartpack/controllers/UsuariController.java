@@ -3,7 +3,6 @@ package com.smartpack.controllers;
 import com.smartpack.dto.ApiResponse;
 import com.smartpack.dto.UserRequestDto;
 import com.smartpack.dto.UserResponseDto;
-import com.smartpack.models.Usuari;
 import com.smartpack.services.UsuariService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +24,13 @@ public class UsuariController {
     @PostMapping("/create")
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
         return ResponseEntity.ok(this.usuariService.createUser(userRequestDto));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserResponseDto> updateUser(
+            @PathVariable Long id,
+            @RequestBody UserRequestDto userRequestDto) {
+        return ResponseEntity.ok(usuariService.updateUser(id, userRequestDto));
     }
 
     @GetMapping("/list")

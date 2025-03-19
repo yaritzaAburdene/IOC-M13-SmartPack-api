@@ -37,6 +37,7 @@ public class AuthenticationService {
         usuari.setNom(request.getNom());
         usuari.setCognom(request.getCognom());
         usuari.setTelefon(request.getTelefon());
+        usuari.setActive(true);
 
         if (request.getAdreça() == null || request.getAdreça().isEmpty()) {
             usuari.setAdreça("No especificat"); // Valor por defecto
