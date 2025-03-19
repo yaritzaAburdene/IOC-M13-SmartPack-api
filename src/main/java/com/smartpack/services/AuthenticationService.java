@@ -16,16 +16,15 @@ import java.util.Optional;
 @Service
 public class AuthenticationService {
     private final UsuariRepository usuariRepository;
-    
+
     private final PasswordEncoder passwordEncoder;
-    
+
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationService(
-        UsuariRepository usuariRepository,
-        AuthenticationManager authenticationManager,
-        PasswordEncoder passwordEncoder
-    ) {
+            UsuariRepository usuariRepository,
+            AuthenticationManager authenticationManager,
+            PasswordEncoder passwordEncoder) {
         this.authenticationManager = authenticationManager;
         this.usuariRepository = usuariRepository;
         this.passwordEncoder = passwordEncoder;
@@ -33,14 +32,23 @@ public class AuthenticationService {
 
     public Usuari signup(RegistrarUsuariDto request) {
         Usuari usuari = new Usuari();
-        usuari.setEmail(request.getEmail());  
-        usuari.setPassword(passwordEncoder.encode(request.getPassword())); 
-        
-         if (request.getRole() == null || request.getRole().isEmpty()) {
-            usuari.setRole(Rol.USER); // Valor por defecto
+        usuari.setEmail(request.getEmail());
+        usuari.setPassword(passwordEncoder.encode(request.getPassword()));
+        usuari.setNom(request.getNom());
+        usuari.setCognom(request.getCognom());
+        usuari.setTelefon(request.getTelefon());
+
+        if (request.getAdreça() == null || request.getAdreça().isEmpty()) {
+            usuari.setAdreça("No especificat"); // Valor por defecto
+        } else {
+            usuari.setAdreça(request.getAdreça());
+        }
+
+        if (request.getRole() == null || request.getRole().isEmpty()) {
+            usuari.setRole(Rol.ROLE_USER); // Valor por defecto
         } else {
             try {
-                usuari.setRole(Rol.valueOf(request.getRole().toUpperCase())); // Convierte String a Enum
+                usuari.setRole(Rol.valueOf(request.getRole().replace("ROLE_", "").toUpperCase())); // Convierte String a
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException("El rol proporcionado no es válido: " + request.getRole());
             }
@@ -53,9 +61,7 @@ public class AuthenticationService {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         input.getEmail(),
-                        input.getPassword()
-                )
-        );
+                        input.getPassword()));
 
         return usuariRepository.findByEmail(input.getEmail())
                 .orElseThrow();
@@ -63,11 +69,11 @@ public class AuthenticationService {
 
     public String generateResetToken(String email) {
         Optional<Usuari> userOpt = usuariRepository.findByEmail(email);
-        
+
         if (userOpt.isPresent()) {
             Usuari user = userOpt.get();
             String token = UUID.randomUUID().toString();
-            
+
             // Guardar el token en la base de datos
             user.setResetToken(token);
             usuariRepository.save(user);
@@ -80,7 +86,7 @@ public class AuthenticationService {
 
     public void resetPassword(String token, String newPassword) {
         Optional<Usuari> userOpt = usuariRepository.findByResetToken(token);
-        
+
         if (userOpt.isPresent()) {
             Usuari user = userOpt.get();
             user.setPassword(passwordEncoder.encode(newPassword));

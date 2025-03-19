@@ -15,7 +15,7 @@ import java.util.List;
 @Entity
 @Data
 @Table(name = "usuari")
-public class Usuari implements UserDetails{
+public class Usuari implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -30,9 +30,27 @@ public class Usuari implements UserDetails{
     @Column(nullable = false)
     private Rol role;
 
-    @Column(name = "reset_token") 
+    @Column(nullable = false)
+    private String nom;
+
+    @Column(nullable = false)
+    private String cognom;
+
+    @Column(nullable = false)
+    private String telefon;
+
+    @Column(nullable = false)
+    private String adreça;
+
+    @Column
+    private String observacio;
+
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
+
+    @Column(name = "reset_token")
     private String resetToken;
-    
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
@@ -50,7 +68,6 @@ public class Usuari implements UserDetails{
         return password;
     }
 
-    
     public String getEmail() {
         return email;
     }
@@ -59,16 +76,18 @@ public class Usuari implements UserDetails{
         this.password = password;
     }
 
-    
     public void setEmail(String email) {
         this.email = email;
     }
-   
+
     public void setRole(Rol role) {
         this.role = role;
     }
-  
-    
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public String getUsername() {
         return email;
