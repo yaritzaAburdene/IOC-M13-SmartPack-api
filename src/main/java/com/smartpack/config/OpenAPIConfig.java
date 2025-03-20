@@ -15,8 +15,7 @@ public class OpenAPIConfig {
                 .info(new Info()
                         .title("Smartpack API")
                         .version("1.0")
-                        .description("Documentación de la API de Smartpack")
-                ); 
+                        .description("Documentació de la API de Smartpack"));
     }
 
     @Bean
