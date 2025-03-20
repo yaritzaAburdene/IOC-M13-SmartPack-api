@@ -11,6 +11,7 @@
 	<groupId>com.smartpack</groupId>
 	<artifactId>smartpack-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
 	<name>smartpack-api</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>

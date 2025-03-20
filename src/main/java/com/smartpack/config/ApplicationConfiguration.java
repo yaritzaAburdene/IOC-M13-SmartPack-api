@@ -15,26 +15,53 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class ApplicationConfiguration {
     private final UsuariRepository userRepository;
 
+    /**
+     * Constructor ApplicationConfiguration
+     * 
+     * @param userRepository
+     */
     public ApplicationConfiguration(UsuariRepository userRepository) {
         this.userRepository = userRepository;
     }
 
+    /**
+     * Obté l'usuari per l'autenticació
+     * 
+     * @return
+     */
     @Bean
     UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuari no trovat"));
     }
 
+    /**
+     * Crea una nova encriptació
+     * 
+     * @return
+     */
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
+    /**
+     * Obté a autenticació Manager
+     * 
+     * @param config
+     * @return
+     * @throws Exception
+     */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 
+    /**
+     * Obté el provider que fa la validació amb les credencials amb la base de dades
+     * 
+     * @return
+     */
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

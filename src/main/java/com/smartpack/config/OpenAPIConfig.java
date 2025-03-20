@@ -9,6 +9,10 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class OpenAPIConfig {
+
+    /**
+     * Inicialitza Apidoc
+     */
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
@@ -18,6 +22,11 @@ public class OpenAPIConfig {
                         .description("Documentació de la API de Smartpack"));
     }
 
+    /**
+     * Agrupació de documentació
+     * 
+     * @return
+     */
     @Bean
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()

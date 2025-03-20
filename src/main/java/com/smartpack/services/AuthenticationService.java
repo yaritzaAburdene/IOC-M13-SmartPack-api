@@ -21,6 +21,13 @@ public class AuthenticationService {
 
     private final AuthenticationManager authenticationManager;
 
+    /**
+     * Constructor AuthenticationService
+     * 
+     * @param usuariRepository
+     * @param authenticationManager
+     * @param passwordEncoder
+     */
     public AuthenticationService(
             UsuariRepository usuariRepository,
             AuthenticationManager authenticationManager,
@@ -30,6 +37,12 @@ public class AuthenticationService {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Registra un nou usauri
+     * 
+     * @param request
+     * @return
+     */
     public Usuari signup(RegistrarUsuariDto request) {
         Usuari usuari = new Usuari();
         usuari.setEmail(request.getEmail());
@@ -58,6 +71,12 @@ public class AuthenticationService {
         return usuariRepository.save(usuari);
     }
 
+    /**
+     * Comproba el usuari per l'autenticació
+     * 
+     * @param input
+     * @return
+     */
     public Usuari authenticate(LoginUsuariDto input) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
@@ -68,6 +87,12 @@ public class AuthenticationService {
                 .orElseThrow();
     }
 
+    /**
+     * Genera el token
+     * 
+     * @param email
+     * @return
+     */
     public String generateResetToken(String email) {
         Optional<Usuari> userOpt = usuariRepository.findByEmail(email);
 
@@ -75,26 +100,31 @@ public class AuthenticationService {
             Usuari user = userOpt.get();
             String token = UUID.randomUUID().toString();
 
-            // Guardar el token en la base de datos
             user.setResetToken(token);
             usuariRepository.save(user);
 
-            return token; // Ahora el token se devuelve en la respuesta
+            return token;
         } else {
-            throw new RuntimeException("Email no registrado.");
+            throw new RuntimeException("Email no registrat.");
         }
     }
 
+    /**
+     * Crea nou contrasenya i elimina el token actual
+     * 
+     * @param token
+     * @param newPassword
+     */
     public void resetPassword(String token, String newPassword) {
         Optional<Usuari> userOpt = usuariRepository.findByResetToken(token);
 
         if (userOpt.isPresent()) {
             Usuari user = userOpt.get();
             user.setPassword(passwordEncoder.encode(newPassword));
-            user.setResetToken(null); // Elimina el token tras el uso
+            user.setResetToken(null);
             usuariRepository.save(user);
         } else {
-            throw new RuntimeException("Token inválido o expirado.");
+            throw new RuntimeException("Token invalid  o expirat.");
         }
     }
 }

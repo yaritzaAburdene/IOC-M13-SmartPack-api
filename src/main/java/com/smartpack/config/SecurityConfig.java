@@ -22,6 +22,12 @@ public class SecurityConfig {
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
+    /**
+     * Constructor SecurityConfig
+     * 
+     * @param jwtAuthenticationFilter
+     * @param authenticationProvider
+     */
     public SecurityConfig(
             JwtAuthenticationFilter jwtAuthenticationFilter,
             AuthenticationProvider authenticationProvider) {
@@ -29,6 +35,13 @@ public class SecurityConfig {
         this.jwtAuthenticationFilter = jwtAuthenticationFilter;
     }
 
+    /**
+     * Defineix els permisos de les rutes
+     * 
+     * @param http
+     * @return
+     * @throws Exception
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -41,6 +54,7 @@ public class SecurityConfig {
                         "/swagger-ui.html",
                         "/v3/api-docs/**",
                         "/webjars/**",
+                        "/site/apidocs/**",
                         "/auth/**") // Permite acceso sin autenticación a las rutas de autenticación
                 .permitAll()
                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll() // Permite FORWARD y
@@ -56,6 +70,12 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /**
+     * Configuració de les CORS
+     * on permet les peticions
+     * 
+     * @return
+     */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();

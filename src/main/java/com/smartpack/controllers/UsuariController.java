@@ -23,12 +23,27 @@ public class UsuariController {
         this.usuariService = usuariService;
     }
 
+    /**
+     * Crear usuari
+     * permet crear un nou usuari
+     * 
+     * @param userRequestDto
+     * @return
+     */
     @PostMapping("/create")
     @Operation(summary = "Crea un nou usuari", description = "permet crear un nou usuari.")
     public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
         return ResponseEntity.ok(this.usuariService.createUser(userRequestDto));
     }
 
+    /**
+     * Modificar un usuari
+     * permet modificar un usuari ja creat
+     * 
+     * @param id
+     * @param userRequestDto
+     * @return
+     */
     @PutMapping("/{id}")
     @Operation(summary = "Modificar un usuari", description = "permet modificar un usuari ja creat.")
     public ResponseEntity<UserResponseDto> updateUser(
@@ -37,6 +52,12 @@ public class UsuariController {
         return ResponseEntity.ok(usuariService.updateUser(id, userRequestDto));
     }
 
+    /**
+     * Llistar tots els usuaris
+     * Mostrar tots els usuaris creats
+     * 
+     * @return
+     */
     @GetMapping("/list")
     @Operation(summary = "Llistar tots els usuaris ", description = "Mostrar tots els usuaris creats")
     public ResponseEntity<List<UserResponseDto>> getAllUsers() {

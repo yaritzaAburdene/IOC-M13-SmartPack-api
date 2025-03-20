@@ -30,6 +30,13 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
+    /**
+     * Registrar nou usuari
+     * permet fer un registre a un nou usuari.
+     * 
+     * @param registerUserDto
+     * @return
+     */
     @PostMapping("/registrar")
     @Operation(summary = "Registrar nou usuari", description = "permet fer un registre a un nou usuari.")
     public ResponseEntity<Usuari> register(@RequestBody RegistrarUsuariDto registerUserDto) {
@@ -38,8 +45,15 @@ public class AuthController {
         return ResponseEntity.ok(registeredUser);
     }
 
+    /**
+     * Iniciar sessió
+     * Autentica un usuari i retorna un token JWT.
+     * 
+     * @param loginUserDto
+     * @return
+     */
     @PostMapping("/login")
-    @Operation(summary = "Iniciar sessión", description = "Autentica un usuari i retorna un token JWT.")
+    @Operation(summary = "Iniciar sessió", description = "Autentica un usuari i retorna un token JWT.")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginUsuariDto loginUserDto) {
         Usuari authenticatedUser = authenticationService.authenticate(loginUserDto);
 
@@ -52,6 +66,13 @@ public class AuthController {
         return ResponseEntity.ok(loginResponse);
     }
 
+    /**
+     * Solicitar recuperació de contrasenya
+     * Genera un token para restablir la contrasenya.
+     * 
+     * @param request
+     * @return
+     */
     @PostMapping("/forgot-password")
     @Operation(summary = "Solicitar recuperació de contrasenya", description = "Genera un token para restablir la contrasenya.")
     public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
@@ -59,6 +80,13 @@ public class AuthController {
         return ResponseEntity.ok("Token de recuperació generat: " + resetToken);
     }
 
+    /**
+     * Restablir contrasenya
+     * Permite canviara la contrasenya amb un token vàlid.
+     * 
+     * @param request
+     * @return
+     */
     @PostMapping("/reset-password")
     @Operation(summary = "Restablir contrasenya", description = "Permite canviara la contrasenya amb un token vàlid.")
     public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
