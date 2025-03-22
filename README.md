@@ -24,14 +24,19 @@ cd IOC-M13-SmartPack-api
 ```bash
 mvn spring-boot:run
 ```
+4. Netejar compila i empaqueta amb:
+```bash
+mvn clean package
+```
 
 ## 📡 Endpoints Bàsics
 
-- `POST /auth/*login` - Autenticació d'usuaris.
-- `GET /paquets/{aneu}` - Obtenir detalls d'un paquet.
+- `POST /auth/login` - Autenticació d'usuaris.
+- `POST /auth/registrar` - registrar usuaris.
+- `GET /paquets/{id}` - Obtenir detalls d'un paquet.
 - `POST /paquets` - Crear un nou paquet.
-- `PUT /paquets/{aneu}` - Actualitzar un paquet.
-- `DELETE /paquets/{aneu}` - Eliminar un paquet.
+- `PUT /paquets/{id}` - Actualitzar un paquet.
+- `DELETE /paquets/{id}` - Eliminar un paquet.
 
 ## 📜 Llicència
 
