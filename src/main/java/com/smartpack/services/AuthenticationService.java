@@ -65,7 +65,7 @@ public class AuthenticationService {
             usuari.setRole(Rol.ROLE_USER); // Valor por defecto
         } else {
             try {
-                usuari.setRole(Rol.valueOf(request.getRole().replace("ROLE_", "").toUpperCase())); // Convierte String a
+                usuari.setRole(Rol.valueOf(request.getRole())); // Convierte String a
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException("El rol proporcionado no es válido: " + request.getRole());
             }
