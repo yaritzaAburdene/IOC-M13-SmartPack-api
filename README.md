@@ -54,16 +54,17 @@ mvn -Dtest=UsuariServiceTest test
 ```
 
 ## 📒 JavaDoc
-Per generar la documentació javadoc s'ha de executar un fitxer: 
-Executar des de Windows amb powershell
+Per generar la documentació javadoc s'ha de executar un fitxer:
+
+Executar des de Windows 🪟 amb powershell
 ```bash
 .\copy-javadoc.cmd
 ```
-Executar des de Ubuntu
+Executar des de Ubuntu 🐧
 ```bash
 .\copy-javadoc.sh
 ```
-Si no te permís a Ubuntu
+Si no te permís a Ubuntu 🐧
 ```bash
 chmod +x copy-javadoc.sh
 ```

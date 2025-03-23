@@ -6,7 +6,10 @@ import java.util.Date;
  * Classe LoginResponse
  */
 public class LoginResponse {
+
     private String token;
+
+    private String role;
 
     private Date expiresIn;
 
@@ -26,6 +29,24 @@ public class LoginResponse {
      */
     public void setToken(String token) {
         this.token = token;
+    }
+
+    /**
+     * Get Role
+     * 
+     * @return String
+     */
+    public String getRole() {
+        return role;
+    }
+
+    /**
+     * set Role
+     * 
+     * @param role String
+     */
+    public void setRole(String role) {
+        this.role = role;
     }
 
     /**
