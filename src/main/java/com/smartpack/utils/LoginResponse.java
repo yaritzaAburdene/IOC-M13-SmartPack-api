@@ -1,7 +1,5 @@
 package com.smartpack.utils;
 
-import java.util.Date;
-
 /**
  * Classe LoginResponse
  */
@@ -11,7 +9,7 @@ public class LoginResponse {
 
     private String role;
 
-    private Date expiresIn;
+    private String expiresIn;
 
     /**
      * Get Token
@@ -52,18 +50,18 @@ public class LoginResponse {
     /**
      * set Expires IN
      * 
-     * @param expiresIn Date
+     * @param expiresIn String
      */
-    public void setExpiresIn(Date expiresIn) {
+    public void setExpiresIn(String expiresIn) {
         this.expiresIn = expiresIn;
     }
 
     /**
      * Get Expires In
      * 
-     * @return Date
+     * @return String
      */
-    public Date getExpiresIn() {
+    public String getExpiresIn() {
         return expiresIn;
     }
 }

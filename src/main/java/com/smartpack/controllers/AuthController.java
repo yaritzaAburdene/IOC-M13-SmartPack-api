@@ -11,6 +11,11 @@ import com.smartpack.services.AuthenticationService;
 import com.smartpack.services.JwtService;
 import com.smartpack.utils.LoginResponse;
 
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.TimeZone;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -73,7 +78,10 @@ public class AuthController {
 
         LoginResponse loginResponse = new LoginResponse();
         loginResponse.setToken(jwtToken);
-        loginResponse.setExpiresIn(jwtService.extractExpiration(jwtToken));
+        Date expirationDate = new Date(System.currentTimeMillis() + jwtService.getExpirationTime());
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSXXX");
+        formatter.setTimeZone(TimeZone.getTimeZone("Europe/Madrid")); // zona horaria
+        loginResponse.setExpiresIn(formatter.format(expirationDate));
         loginResponse.setRole(authenticatedUser.getRole().toString());
 
         return ResponseEntity.ok(loginResponse);
