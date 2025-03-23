@@ -13,6 +13,9 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 import java.util.Optional;
 
+/**
+ * Classe AuthenticationService
+ */
 @Service
 public class AuthenticationService {
     private final UsuariRepository usuariRepository;
@@ -24,9 +27,9 @@ public class AuthenticationService {
     /**
      * Constructor AuthenticationService
      * 
-     * @param usuariRepository
-     * @param authenticationManager
-     * @param passwordEncoder
+     * @param usuariRepository      UsuariRepository
+     * @param authenticationManager AuthenticationManager
+     * @param passwordEncoder       PasswordEncoder
      */
     public AuthenticationService(
             UsuariRepository usuariRepository,
@@ -40,8 +43,8 @@ public class AuthenticationService {
     /**
      * Registra un nou usauri
      * 
-     * @param request
-     * @return
+     * @param request RegistrarUsuariDto
+     * @return Usuari
      */
     public Usuari signup(RegistrarUsuariDto request) {
         Usuari usuari = new Usuari();
@@ -74,8 +77,8 @@ public class AuthenticationService {
     /**
      * Comproba el usuari per l'autenticació
      * 
-     * @param input
-     * @return
+     * @param input LoginUsuariDto
+     * @return Usuari
      */
     public Usuari authenticate(LoginUsuariDto input) {
         authenticationManager.authenticate(
@@ -90,8 +93,8 @@ public class AuthenticationService {
     /**
      * Genera el token
      * 
-     * @param email
-     * @return
+     * @param email String
+     * @return Usuari
      */
     public String generateResetToken(String email) {
         Optional<Usuari> userOpt = usuariRepository.findByEmail(email);
@@ -112,8 +115,8 @@ public class AuthenticationService {
     /**
      * Crea nou contrasenya i elimina el token actual
      * 
-     * @param token
-     * @param newPassword
+     * @param token       String
+     * @param newPassword String
      */
     public void resetPassword(String token, String newPassword) {
         Optional<Usuari> userOpt = usuariRepository.findByResetToken(token);

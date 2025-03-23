@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+/**
+ * Control global d'errors
+ */
 @Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,8 +27,8 @@ public class GlobalExceptionHandler {
      * Handle Bad Credentials
      * Error de credencials
      * 
-     * @param exception
-     * @return
+     * @param exception BadCredentialsException
+     * @return ProblemDetail
      */
     @ExceptionHandler(BadCredentialsException.class)
     public ProblemDetail handleBadCredentials(BadCredentialsException exception) {
@@ -39,8 +42,8 @@ public class GlobalExceptionHandler {
      * Account Status Exception
      * Error compte bloquejat
      * 
-     * @param exception
-     * @return
+     * @param exception AccountStatusException
+     * @return ProblemDetail
      */
     @ExceptionHandler(AccountStatusException.class)
     public ProblemDetail handleAccountStatus(AccountStatusException exception) {
@@ -54,8 +57,8 @@ public class GlobalExceptionHandler {
      * Access Denied Exception
      * Error autorització
      * 
-     * @param exception
-     * @return
+     * @param exception AccessDeniedException
+     * @return ProblemDetail
      */
     @ExceptionHandler(AccessDeniedException.class)
     public ProblemDetail handleAccessDenied(AccessDeniedException exception) {
@@ -69,8 +72,8 @@ public class GlobalExceptionHandler {
      * Signature Exception
      * token invalid
      * 
-     * @param exception
-     * @return
+     * @param exception SignatureException
+     * @return ProblemDetail
      */
     @ExceptionHandler(SignatureException.class)
     public ProblemDetail handleSignature(SignatureException exception) {
@@ -84,8 +87,8 @@ public class GlobalExceptionHandler {
      * Expired Jwt Exception
      * Token caducat
      * 
-     * @param exception
-     * @return
+     * @param exception ExpiredJwtException
+     * @return ProblemDetail
      */
     @ExceptionHandler(ExpiredJwtException.class)
     public ProblemDetail handleExpiredJwt(ExpiredJwtException exception) {
@@ -99,8 +102,8 @@ public class GlobalExceptionHandler {
      * Entity Not Found Exception
      * Entitat no existeix
      * 
-     * @param exception
-     * @return
+     * @param exception EntityNotFoundException
+     * @return ProblemDetail
      */
     @ExceptionHandler(EntityNotFoundException.class)
     public ProblemDetail handleEntityNotFound(EntityNotFoundException exception) {
@@ -114,8 +117,8 @@ public class GlobalExceptionHandler {
      * Data Integrity Violation Exception
      * Error en base de dades
      * 
-     * @param exception
-     * @return
+     * @param exception DataIntegrityViolationException
+     * @return ProblemDetail
      */
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ProblemDetail handleDataIntegrityViolation(DataIntegrityViolationException exception) {
@@ -131,8 +134,8 @@ public class GlobalExceptionHandler {
      * Method Argument Not Valid Exception
      * Parametres invalid
      * 
-     * @param exception
-     * @return
+     * @param exception MethodArgumentNotValidException
+     * @return ProblemDetail
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ProblemDetail handleValidationErrors(MethodArgumentNotValidException exception) {
@@ -147,8 +150,8 @@ public class GlobalExceptionHandler {
      * Method Argument Type Mismatch Exception
      * Error en el tipus de parametres
      * 
-     * @param exception
-     * @return
+     * @param exception MethodArgumentTypeMismatchException
+     * @return ProblemDetail
      */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ProblemDetail handleTypeMismatch(MethodArgumentTypeMismatchException exception) {
@@ -159,6 +162,13 @@ public class GlobalExceptionHandler {
         return errorDetail;
     }
 
+    /**
+     * Exception
+     * Excepcio generica
+     * 
+     * @param exception Exception
+     * @return ProblemDetail
+     */
     @ExceptionHandler(Exception.class)
     public ProblemDetail handleGeneralException(Exception exception) {
         log.error("Error inesperat al servidor", exception);

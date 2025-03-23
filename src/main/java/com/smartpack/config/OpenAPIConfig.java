@@ -7,11 +7,17 @@ import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * OpenAPIConfig
+ * configuració de documentacio de enpoints
+ */
 @Configuration
 public class OpenAPIConfig {
 
     /**
      * Inicialitza Apidoc
+     * 
+     * @return OpenAPI
      */
     @Bean
     public OpenAPI customOpenAPI() {
@@ -25,7 +31,7 @@ public class OpenAPIConfig {
     /**
      * Agrupació de documentació
      * 
-     * @return
+     * @return GroupedOpenApi
      */
     @Bean
     public GroupedOpenApi publicApi() {

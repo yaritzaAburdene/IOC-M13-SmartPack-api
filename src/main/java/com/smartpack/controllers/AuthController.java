@@ -13,8 +13,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import io.swagger.v3.oas.annotations.Operation;
 
+/**
+ * AuthController
+ */
 @RestController
 @RequestMapping("/auth")
 @CrossOrigin(origins = "*")
@@ -25,6 +29,12 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
 
+    /**
+     * Constructor AuthController
+     * 
+     * @param jwtService            JwtService
+     * @param authenticationService AuthenticationService
+     */
     public AuthController(JwtService jwtService, AuthenticationService authenticationService) {
         this.jwtService = jwtService;
         this.authenticationService = authenticationService;
@@ -34,12 +44,12 @@ public class AuthController {
      * Registrar nou usuari
      * permet fer un registre a un nou usuari.
      * 
-     * @param registerUserDto
-     * @return
+     * @param registerUserDto RegistrarUsuariDto
+     * @return ResponseEntity
      */
     @PostMapping("/registrar")
     @Operation(summary = "Registrar nou usuari", description = "permet fer un registre a un nou usuari.")
-    public ResponseEntity<Usuari> register(@RequestBody RegistrarUsuariDto registerUserDto) {
+    public ResponseEntity<Usuari> register(@Valid @RequestBody RegistrarUsuariDto registerUserDto) {
         Usuari registeredUser = authenticationService.signup(registerUserDto);
 
         return ResponseEntity.ok(registeredUser);
@@ -49,12 +59,12 @@ public class AuthController {
      * Iniciar sessió
      * Autentica un usuari i retorna un token JWT.
      * 
-     * @param loginUserDto
-     * @return
+     * @param loginUserDto LoginUsuariDto
+     * @return ResponseEntity
      */
     @PostMapping("/login")
     @Operation(summary = "Iniciar sessió", description = "Autentica un usuari i retorna un token JWT.")
-    public ResponseEntity<LoginResponse> login(@RequestBody LoginUsuariDto loginUserDto) {
+    public ResponseEntity<LoginResponse> login(@Valid @RequestBody LoginUsuariDto loginUserDto) {
         Usuari authenticatedUser = authenticationService.authenticate(loginUserDto);
 
         String jwtToken = jwtService.generateToken(authenticatedUser);
@@ -70,8 +80,8 @@ public class AuthController {
      * Solicitar recuperació de contrasenya
      * Genera un token para restablir la contrasenya.
      * 
-     * @param request
-     * @return
+     * @param request ForgotPasswordRequest
+     * @return ResponseEntity
      */
     @PostMapping("/forgot-password")
     @Operation(summary = "Solicitar recuperació de contrasenya", description = "Genera un token para restablir la contrasenya.")
@@ -84,8 +94,8 @@ public class AuthController {
      * Restablir contrasenya
      * Permite canviara la contrasenya amb un token vàlid.
      * 
-     * @param request
-     * @return
+     * @param request ResetPasswordRequest
+     * @return ResponseEntity
      */
     @PostMapping("/reset-password")
     @Operation(summary = "Restablir contrasenya", description = "Permite canviara la contrasenya amb un token vàlid.")

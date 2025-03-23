@@ -33,10 +33,40 @@ mvn clean package
 
 - `POST /auth/login` - Autenticació d'usuaris.
 - `POST /auth/registrar` - registrar usuaris.
-- `GET /paquets/{id}` - Obtenir detalls d'un paquet.
-- `POST /paquets` - Crear un nou paquet.
-- `PUT /paquets/{id}` - Actualitzar un paquet.
-- `DELETE /paquets/{id}` - Eliminar un paquet.
+- `GET /usuari/{id}` - Obtenir detalls d'un usuari.
+- `POST /usuari` - Crear un nou usuari.
+- `PUT /usuari/{id}` - Actualitzar un usuari.
+- `DELETE /usuari/{id}` - Eliminar un usuari.
+
+## 🧪 Test
+
+1. Netejar test
+```bash
+mvn clean test
+```
+2. Executar tot el test 
+```bash
+mvn test
+```
+3. Executar només un fitxer test 
+```bash
+mvn -Dtest=UsuariServiceTest test
+```
+
+## 📒 JavaDoc
+Per generar la documentació javadoc s'ha de executar un fitxer: 
+Executar des de Windows
+```bash
+copy-javadoc.cmd
+```
+Executar des de Ubuntu
+```bash
+.\copy-javadoc.sh
+```
+Si no te permís
+```bash
+chmod +x copy-javadoc.sh
+```
 
 ## 📜 Llicència
 

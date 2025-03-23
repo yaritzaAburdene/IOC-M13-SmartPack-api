@@ -11,6 +11,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+/**
+ * Classe ApplicationConfiguration
+ */
 @Configuration
 public class ApplicationConfiguration {
     private final UsuariRepository userRepository;
@@ -18,7 +21,7 @@ public class ApplicationConfiguration {
     /**
      * Constructor ApplicationConfiguration
      * 
-     * @param userRepository
+     * @param userRepository UsuariRepository
      */
     public ApplicationConfiguration(UsuariRepository userRepository) {
         this.userRepository = userRepository;
@@ -38,7 +41,7 @@ public class ApplicationConfiguration {
     /**
      * Crea una nova encriptació
      * 
-     * @return
+     * @return BCryptPasswordEncoder
      */
     @Bean
     BCryptPasswordEncoder passwordEncoder() {
@@ -48,9 +51,9 @@ public class ApplicationConfiguration {
     /**
      * Obté a autenticació Manager
      * 
-     * @param config
-     * @return
-     * @throws Exception
+     * @param config AuthenticationConfiguration
+     * @return AuthenticationManager
+     * @throws Exception Exception
      */
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
@@ -60,7 +63,7 @@ public class ApplicationConfiguration {
     /**
      * Obté el provider que fa la validació amb les credencials amb la base de dades
      * 
-     * @return
+     * @return DaoAuthenticationProvider
      */
     @Bean
     AuthenticationProvider authenticationProvider() {

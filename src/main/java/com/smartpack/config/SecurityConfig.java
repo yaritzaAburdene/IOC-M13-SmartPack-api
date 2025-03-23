@@ -15,6 +15,9 @@ import jakarta.servlet.DispatcherType;
 
 import java.util.List;
 
+/**
+ * Classe SecurityConfig
+ */
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
@@ -25,8 +28,8 @@ public class SecurityConfig {
     /**
      * Constructor SecurityConfig
      * 
-     * @param jwtAuthenticationFilter
-     * @param authenticationProvider
+     * @param jwtAuthenticationFilter JwtAuthenticationFilter
+     * @param authenticationProvider  AuthenticationProvider
      */
     public SecurityConfig(
             JwtAuthenticationFilter jwtAuthenticationFilter,
@@ -38,9 +41,9 @@ public class SecurityConfig {
     /**
      * Defineix els permisos de les rutes
      * 
-     * @param http
-     * @return
-     * @throws Exception
+     * @param http HttpSecurity
+     * @return SecurityFilterChain
+     * @throws Exception Exception
      */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -52,7 +55,9 @@ public class SecurityConfig {
                         "/index.html",
                         "/swagger-ui/**",
                         "/swagger-ui.html",
+                        "swagger-ui/index.html",
                         "/v3/api-docs/**",
+                        "/v3/api-docs/public",
                         "/webjars/**",
                         "/site/apidocs/**",
                         "/auth/**") // Permite acceso sin autenticación a las rutas de autenticación
@@ -74,7 +79,7 @@ public class SecurityConfig {
      * Configuració de les CORS
      * on permet les peticions
      * 
-     * @return
+     * @return CorsConfigurationSource
      */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {

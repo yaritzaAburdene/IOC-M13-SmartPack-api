@@ -2,6 +2,9 @@ package com.smartpack.dto;
 
 import lombok.Data;
 
+/**
+ * Classe UserRequestDto
+ */
 @Data
 public class UserRequestDto {
     private String email;

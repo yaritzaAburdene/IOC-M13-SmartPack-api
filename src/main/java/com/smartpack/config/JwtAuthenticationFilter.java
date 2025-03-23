@@ -18,6 +18,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
+/**
+ * Classe JwtAuthenticationFilter
+ */
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final HandlerExceptionResolver handlerExceptionResolver;
@@ -28,9 +31,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     /**
      * Constructor JwtAuthenticationFilter
      * 
-     * @param jwtService
-     * @param userDetailsService
-     * @param handlerExceptionResolver
+     * @param jwtService               JwtService
+     * @param userDetailsService       UserDetailsService
+     * @param handlerExceptionResolver HandlerExceptionResolver
      */
     public JwtAuthenticationFilter(
             JwtService jwtService,

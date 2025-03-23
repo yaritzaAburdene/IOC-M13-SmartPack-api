@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+/**
+ * Classe UsuariController
+ */
 @RestController
 @RequestMapping("/usuari")
 @CrossOrigin(origins = "*")
@@ -19,6 +22,11 @@ public class UsuariController {
 
     private final UsuariService usuariService;
 
+    /**
+     * Constructor UsuariController
+     * 
+     * @param usuariService UsuariService
+     */
     public UsuariController(UsuariService usuariService) {
         this.usuariService = usuariService;
     }
@@ -27,8 +35,8 @@ public class UsuariController {
      * Crear usuari
      * permet crear un nou usuari
      * 
-     * @param userRequestDto
-     * @return
+     * @param userRequestDto UserResponseDto
+     * @return UserResponseDto
      */
     @PostMapping("/create")
     @Operation(summary = "Crea un nou usuari", description = "permet crear un nou usuari.")
@@ -40,9 +48,9 @@ public class UsuariController {
      * Modificar un usuari
      * permet modificar un usuari ja creat
      * 
-     * @param id
-     * @param userRequestDto
-     * @return
+     * @param id             long
+     * @param userRequestDto UserResponseDto
+     * @return UserResponseDto
      */
     @PutMapping("/{id}")
     @Operation(summary = "Modificar un usuari", description = "permet modificar un usuari ja creat.")
@@ -53,10 +61,11 @@ public class UsuariController {
     }
 
     /**
+     * Get All Users
      * Llistar tots els usuaris
      * Mostrar tots els usuaris creats
      * 
-     * @return
+     * @return UserResponseDto llistat
      */
     @GetMapping("/list")
     @Operation(summary = "Llistar tots els usuaris ", description = "Mostrar tots els usuaris creats")
@@ -64,12 +73,26 @@ public class UsuariController {
         return ResponseEntity.ok(this.usuariService.getAllUsers());
     }
 
+    /**
+     * Get User By Id
+     * Obtenir usuari per ID
+     * 
+     * @param id Long
+     * @return UserResponseDto
+     */
     @GetMapping("/{id}")
     @Operation(summary = "Obtenir un usuari", description = "Mostrar un usuari filtrat pel ID")
     public ResponseEntity<UserResponseDto> getUserById(@PathVariable Long id) {
         return ResponseEntity.ok(this.usuariService.getUserById(id));
     }
 
+    /**
+     * Deactivate User
+     * Desactivar un usuari per ID
+     * 
+     * @param id long
+     * @return ApiResponse
+     */
     @PatchMapping("/{id}/desactivate")
     @Operation(summary = "Desactiva un usuari", description = "Desactiva un usuari filtrat pel ID")
     public ResponseEntity<ApiResponse> deactivateUser(@PathVariable Long id) {
