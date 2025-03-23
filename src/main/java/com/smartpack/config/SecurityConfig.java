@@ -60,6 +60,7 @@ public class SecurityConfig {
                         "/v3/api-docs/public",
                         "/webjars/**",
                         "/site/apidocs/**",
+                        "/javadoc/**",
                         "/auth/**") // Permite acceso sin autenticación a las rutas de autenticación
                 .permitAll()
                 .dispatcherTypeMatchers(DispatcherType.FORWARD, DispatcherType.ERROR).permitAll() // Permite FORWARD y

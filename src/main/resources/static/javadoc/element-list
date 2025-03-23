@@ -1,0 +1,9 @@
+com.smartpack.config
+com.smartpack.controllers
+com.smartpack.dto
+com.smartpack.exceptions
+com.smartpack.models
+com.smartpack.repositories
+com.smartpack.services
+com.smartpack.smartpack_api
+com.smartpack.utils

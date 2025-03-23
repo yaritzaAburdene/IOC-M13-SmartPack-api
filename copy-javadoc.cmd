@@ -1,9 +1,11 @@
 @echo off
 echo Eliminando javadoc anterior...
-rmdir /S /Q target\reports\apidocs
+if exist src\main\resources\static\javadoc (
+    rmdir /S /Q src\main\resources\static\javadoc
+)
 
 echo Generando JavaDoc...
-mvn javadoc:javadoc
+call mvn clean javadoc:javadoc
 
 echo Copiando a static...
 mkdir src\main\resources\static\javadoc 2>nul
