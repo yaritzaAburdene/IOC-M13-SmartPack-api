@@ -20,11 +20,15 @@ git clone https://github.com/tu-usuario/ioc-m13-smartpack-api.git
 cd IOC-M13-SmartPack-api
 ```
 2. Configurar la base de dades en `application.properties`.
-3. Executar l'aplicació amb:
+3. Instal·lar els paquets:
+```bash
+mvn install
+```
+4. Executar l'aplicació amb:
 ```bash
 mvn spring-boot:run
 ```
-4. Netejar compila i empaqueta amb:
+5. Netejar compila i empaqueta amb:
 ```bash
 mvn clean package
 ```
