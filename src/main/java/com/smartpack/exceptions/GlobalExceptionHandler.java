@@ -3,6 +3,7 @@ package com.smartpack.exceptions;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.SignatureException;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,7 +21,7 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
  * Control global d'errors
  */
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = "com.smartpack.controllers")
 public class GlobalExceptionHandler {
 
     /**
@@ -170,7 +171,14 @@ public class GlobalExceptionHandler {
      * @return ProblemDetail
      */
     @ExceptionHandler(Exception.class)
-    public ProblemDetail handleGeneralException(Exception exception) {
+    public ProblemDetail handleGeneralException(HttpServletRequest request, Exception exception) {
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
+            log.warn("Swagger error ignorado: {}", exception.getMessage());
+            return null; // <-- ¡no lances una excepción aquí!
+        }
+
         log.error("Error inesperat al servidor", exception);
         ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.INTERNAL_SERVER_ERROR,
                 exception.getMessage());
