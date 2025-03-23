@@ -7,6 +7,8 @@ package com.smartpack.models;
  * @see ENVIAT
  * @see TRANSIT
  * @see ENTREGAT
+ * @see NO_ENTREGAT
+ * @see RETORNAT
  */
 public enum Estat {
     /**
@@ -24,5 +26,13 @@ public enum Estat {
     /**
      * Estat ENTREGAT
      */
-    ENTREGAT
+    ENTREGAT,
+    /**
+     * Estat ENTREGAT
+     */
+    NO_ENTREGAT,
+    /**
+     * Estat ENTREGAT
+     */
+    RETORNAT
 }
