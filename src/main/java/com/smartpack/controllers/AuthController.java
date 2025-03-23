@@ -1,6 +1,8 @@
 package com.smartpack.controllers;
 
+import com.smartpack.dto.ApiResponse;
 import com.smartpack.dto.ForgotPasswordRequest;
+import com.smartpack.dto.ForgotPasswordResponse;
 import com.smartpack.dto.LoginUsuariDto;
 import com.smartpack.dto.RegistrarUsuariDto;
 import com.smartpack.dto.ResetPasswordRequest;
@@ -86,9 +88,9 @@ public class AuthController {
      */
     @PostMapping("/forgot-password")
     @Operation(summary = "Solicitar recuperació de contrasenya", description = "Genera un token para restablir la contrasenya.")
-    public ResponseEntity<String> forgotPassword(@RequestBody ForgotPasswordRequest request) {
+    public ResponseEntity<ForgotPasswordResponse> forgotPassword(@RequestBody ForgotPasswordRequest request) {
         String resetToken = authenticationService.generateResetToken(request.getEmail());
-        return ResponseEntity.ok("Token de recuperació generat: " + resetToken);
+        return ResponseEntity.ok(new ForgotPasswordResponse("Token de recuperació generat", resetToken));
     }
 
     /**
@@ -100,8 +102,8 @@ public class AuthController {
      */
     @PostMapping("/reset-password")
     @Operation(summary = "Restablir contrasenya", description = "Permite canviara la contrasenya amb un token vàlid.")
-    public ResponseEntity<String> resetPassword(@RequestBody ResetPasswordRequest request) {
+    public ResponseEntity<ApiResponse> resetPassword(@RequestBody ResetPasswordRequest request) {
         authenticationService.resetPassword(request.getToken(), request.getNewPassword());
-        return ResponseEntity.ok("Contrasenya actualitzada correctament.");
+        return ResponseEntity.ok(new ApiResponse("Contrasenya actualitzada correctament."));
     }
 }
