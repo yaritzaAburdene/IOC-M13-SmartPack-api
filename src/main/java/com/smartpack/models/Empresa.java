@@ -25,6 +25,9 @@ public class Empresa {
     private String nif;
 
     @Column(nullable = false)
+    private String nom;
+
+    @Column(unique = true, nullable = false)
     private String email;
 
     @Column(nullable = false)
@@ -35,6 +38,12 @@ public class Empresa {
 
     @OneToMany(mappedBy = "empresa")
     private List<Usuari> usuaris;
+
+    /**
+     * Activacio empresa
+     */
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")

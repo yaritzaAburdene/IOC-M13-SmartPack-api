@@ -158,6 +158,15 @@ public class Usuari implements UserDetails {
     }
 
     /**
+     * Set Active
+     * 
+     * @param active Boolean
+     */
+    public void getActivate(boolean active) {
+        this.active = active;
+    }
+
+    /**
      * set Active
      * 
      * @param active boolean
