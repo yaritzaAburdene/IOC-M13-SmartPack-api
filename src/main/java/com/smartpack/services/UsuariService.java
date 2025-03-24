@@ -92,6 +92,7 @@ public class UsuariService {
         usuari.setCognom(request.getCognom());
         usuari.setTelefon(request.getTelefon());
         usuari.setObservacio(request.getObservacio());
+        usuari.setSecret(request.getSecret());
         usuari.setActive(true);
 
         if (request.getAdreça() == null || request.getAdreça().isEmpty()) {
@@ -139,6 +140,8 @@ public class UsuariService {
             user.setAdreça(request.getAdreça());
         if (request.getObservacio() != null)
             user.setObservacio(request.getObservacio());
+        if (request.getSecret() != null)
+            user.setSecret(request.getSecret());
 
         Usuari updatedUser = usuariRepository.save(user);
         return convertToResponseDto(updatedUser);

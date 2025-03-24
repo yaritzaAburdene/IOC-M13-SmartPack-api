@@ -96,11 +96,16 @@ public class AuthenticationService {
      * @param email String
      * @return Usuari
      */
-    public String generateResetToken(String email) {
+    public String generateResetToken(String email, String secret) {
         Optional<Usuari> userOpt = usuariRepository.findByEmail(email);
 
         if (userOpt.isPresent()) {
             Usuari user = userOpt.get();
+
+            if (!user.getSecret().equals(secret)) {
+                throw new RuntimeException("Secret incorrecte");
+            }
+
             String token = UUID.randomUUID().toString();
 
             user.setResetToken(token);

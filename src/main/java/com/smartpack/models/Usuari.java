@@ -77,6 +77,12 @@ public class Usuari implements UserDetails {
     private String observacio;
 
     /**
+     * secret
+     */
+    @Column
+    private String secret;
+
+    /**
      * Empresa asociada a usuaio opcional
      */
     @ManyToOne(optional = true)

@@ -97,7 +97,7 @@ public class AuthController {
     @PostMapping("/forgot-password")
     @Operation(summary = "Solicitar recuperació de contrasenya", description = "Genera un token para restablir la contrasenya.")
     public ResponseEntity<ForgotPasswordResponse> forgotPassword(@RequestBody ForgotPasswordRequest request) {
-        String resetToken = authenticationService.generateResetToken(request.getEmail());
+        String resetToken = authenticationService.generateResetToken(request.getEmail(), request.getSecret());
         return ResponseEntity.ok(new ForgotPasswordResponse("Token de recuperació generat", resetToken));
     }
 

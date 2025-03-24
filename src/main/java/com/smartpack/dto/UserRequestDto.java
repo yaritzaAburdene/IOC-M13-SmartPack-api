@@ -15,4 +15,5 @@ public class UserRequestDto {
     private String telefon;
     private String adreça;
     private String observacio;
+    private String secret;
 }
