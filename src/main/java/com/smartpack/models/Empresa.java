@@ -24,16 +24,16 @@ public class Empresa {
     @Column(nullable = false)
     private String nif;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String nom;
 
     @Column(unique = true, nullable = false)
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String telefon;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String adreça;
 
     @OneToMany(mappedBy = "empresa")

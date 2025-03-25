@@ -11,7 +11,6 @@ public class EmpresaResponseDto {
     private String email;
     private String nif;
     private String nom;
-    private String cognom;
     private String telefon;
     private String adreça;
 }

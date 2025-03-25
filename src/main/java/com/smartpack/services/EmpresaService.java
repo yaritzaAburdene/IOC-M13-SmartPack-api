@@ -81,6 +81,10 @@ public class EmpresaService {
     public EmpresaResponseDto createEmpresa(EmpresaRequestDto request) {
         Empresa empresa = new Empresa();
         empresa.setEmail(request.getEmail());
+        empresa.setNif(request.getNif());
+        empresa.setAdreça(request.getAdreça());
+        empresa.setTelefon(request.getTelefon());
+        empresa.setNom(request.getNom());
 
         Empresa savedEmpresa = empresaRepository.save(empresa);
         return convertToResponseDto(savedEmpresa);
@@ -100,6 +104,18 @@ public class EmpresaService {
 
         if (request.getEmail() != null) {
             empresa.setEmail(request.getEmail());
+        }
+        if (request.getNif() != null) {
+            empresa.setNif(request.getNif());
+        }
+        if (request.getAdreça() != null) {
+            empresa.setAdreça(request.getAdreça());
+        }
+        if (request.getTelefon() != null) {
+            empresa.setTelefon(request.getTelefon());
+        }
+        if (request.getNom() != null) {
+            empresa.setNom(request.getNom());
         }
 
         Empresa updatedEmpresa = empresaRepository.save(empresa);
