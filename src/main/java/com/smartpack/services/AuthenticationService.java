@@ -53,6 +53,7 @@ public class AuthenticationService {
         usuari.setNom(request.getNom());
         usuari.setCognom(request.getCognom());
         usuari.setTelefon(request.getTelefon());
+        usuari.setSecret(request.getSecret());
         usuari.setActive(true);
 
         if (request.getAdreça() == null || request.getAdreça().isEmpty()) {
@@ -102,7 +103,7 @@ public class AuthenticationService {
         if (userOpt.isPresent()) {
             Usuari user = userOpt.get();
 
-            if (!user.getSecret().equals(secret)) {
+            if (!secret.equals(user.getSecret())) {
                 throw new RuntimeException("Secret incorrecte");
             }
 

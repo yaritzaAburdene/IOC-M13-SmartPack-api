@@ -25,6 +25,8 @@ public class RegistrarUsuariDto {
 
     private String observacio;
 
+    private String secret;
+
     /**
      * Get Email
      * Obtenir email
@@ -171,6 +173,26 @@ public class RegistrarUsuariDto {
      */
     public void setObservacio(String observacio) {
         this.observacio = observacio;
+    }
+
+    /**
+     * Get Secret
+     * Obtenir Secret
+     * 
+     * @return String
+     */
+    public String getSecret() {
+        return secret;
+    }
+
+    /**
+     * Set Secret
+     * modificar Secret
+     * 
+     * @param secret String
+     */
+    public void setSecret(String secret) {
+        this.secret = secret;
     }
 
 }
