@@ -35,7 +35,8 @@ public class ApplicationConfiguration {
     @Bean
     UserDetailsService userDetailsService() {
         return username -> userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuari no trovat"));
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("Usuari no trovat. Has d'iniciar sessió o registrar-te."));
     }
 
     /**

@@ -12,7 +12,6 @@ import com.smartpack.services.JwtService;
 import com.smartpack.utils.LoginResponse;
 
 import java.sql.Date;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.TimeZone;
 
