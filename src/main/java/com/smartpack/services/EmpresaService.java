@@ -1,16 +1,23 @@
 package com.smartpack.services;
 
+import com.smartpack.dto.AssignarUsuariEmpresaRequest;
 import com.smartpack.dto.EmpresaRequestDto;
 import com.smartpack.dto.EmpresaResponseDto;
 import com.smartpack.models.Empresa;
+import com.smartpack.models.Usuari;
 import com.smartpack.repositories.EmpresaRepository;
+import com.smartpack.repositories.UsuariRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Classe EmpresaService
@@ -20,13 +27,17 @@ public class EmpresaService {
     @Autowired
     private EmpresaRepository empresaRepository;
 
+    private UsuariRepository usuariRepository;
+
     /**
      * Constructor EmpresaService
      * 
-     * @param usuariRepository EmpresaRepository
+     * @param EmpresaRepository EmpresaRepository
+     * @param usuariRepository  UsuariRepository
      */
-    public EmpresaService(EmpresaRepository empresaRepository) {
+    public EmpresaService(EmpresaRepository empresaRepository, UsuariRepository usuariRepository) {
         this.empresaRepository = empresaRepository;
+        this.usuariRepository = usuariRepository;
     }
 
     /**
@@ -132,6 +143,43 @@ public class EmpresaService {
                 .orElseThrow(() -> new RuntimeException("Empresa no trobada"));
         empresa.setActive(false);
         empresaRepository.save(empresa);
+    }
+
+    /**
+     * Assignar usuari
+     * 
+     * @param request AssignarUsuariEmpresaRequest
+     */
+    public void assignarUsuariAEmpresa(AssignarUsuariEmpresaRequest request) {
+        Empresa empresa = empresaRepository.findById(request.getEmpresaId())
+                .orElseThrow(() -> new EntityNotFoundException("Empresa no trobada"));
+
+        Usuari usuari = usuariRepository.findById(request.getUsuariId())
+                .orElseThrow(() -> new EntityNotFoundException("Usuari no trobat"));
+
+        if (usuari.getEmpresa() != null && usuari.getEmpresa().getId().equals(empresa.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Aquest usuari ja està assignat a aquesta empresa");
+        }
+
+        usuari.setEmpresa(empresa);
+        usuariRepository.save(usuari);
+    }
+
+    /**
+     * Desassignar Usuari
+     * 
+     * @param usuariId Long
+     */
+    public void desassignarUsuari(Long usuariId) {
+        Usuari usuari = usuariRepository.findById(usuariId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuari no trobat"));
+
+        if (usuari.getEmpresa() == null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Aquest usuari no està assignat a cap empresa");
+        }
+
+        usuari.setEmpresa(null);
+        usuariRepository.save(usuari);
     }
 
     /**

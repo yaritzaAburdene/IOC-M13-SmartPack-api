@@ -1,6 +1,7 @@
 package com.smartpack.controllers;
 
 import com.smartpack.dto.ApiResponse;
+import com.smartpack.dto.AssignarUsuariEmpresaRequest;
 import com.smartpack.dto.EmpresaRequestDto;
 import com.smartpack.dto.EmpresaResponseDto;
 import com.smartpack.services.EmpresaService;
@@ -97,5 +98,31 @@ public class EmpresaController {
     public ResponseEntity<ApiResponse> deactivateEmpresa(@PathVariable Long id) {
         this.empresaService.deactivateEmpresa(id);
         return ResponseEntity.ok(new ApiResponse("Empresa desactivada correctament."));
+    }
+
+    /**
+     * Assignar un usuari
+     * 
+     * @param request AssignarUsuariEmpresaRequest
+     * @return ApiResponse
+     */
+    @PostMapping("/assignar-usuari")
+    @Operation(summary = "Assignar un usuari a una empresa")
+    public ResponseEntity<ApiResponse> assignarUsuari(@RequestBody AssignarUsuariEmpresaRequest request) {
+        empresaService.assignarUsuariAEmpresa(request);
+        return ResponseEntity.ok(new ApiResponse("Usuari assignat a l'empresa correctament"));
+    }
+
+    /**
+     * Desassignar un usuari
+     * 
+     * @param usuariId Long
+     * @return ApiResponse
+     */
+    @PatchMapping("/desassignar-usuari/{usuari_id}")
+    @Operation(summary = "Desassigna un usuari d'una empresa")
+    public ResponseEntity<ApiResponse> desassignarUsuari(@PathVariable("usuari_id") Long usuariId) {
+        empresaService.desassignarUsuari(usuariId);
+        return ResponseEntity.ok(new ApiResponse("Usuari desassignat correctament."));
     }
 }

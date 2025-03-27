@@ -16,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
+import org.springframework.web.server.ResponseStatusException;
 
 /**
  * Control global d'errors
@@ -160,6 +161,21 @@ public class GlobalExceptionHandler {
         ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(HttpStatus.BAD_REQUEST,
                 "Tipus de paràmetre incorrecte");
         errorDetail.setProperty("description", "Comproveu el tipus de dades enviat");
+        return errorDetail;
+    }
+
+    /**
+     * ResponseStatusException
+     * Excepcions amb codi d'estat específic
+     *
+     * @param exception ResponseStatusException
+     * @return ProblemDetail
+     */
+    @ExceptionHandler(ResponseStatusException.class)
+    public ProblemDetail handleResponseStatus(ResponseStatusException exception) {
+        log.warn("Error controlat: {}", exception.getMessage());
+        ProblemDetail errorDetail = ProblemDetail.forStatusAndDetail(exception.getStatusCode(), exception.getReason());
+        errorDetail.setProperty("description", "Hi ha hagut un problema amb la sol·licitud");
         return errorDetail;
     }
 
