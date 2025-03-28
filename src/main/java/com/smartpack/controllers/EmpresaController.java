@@ -4,6 +4,7 @@ import com.smartpack.dto.ApiResponse;
 import com.smartpack.dto.AssignarUsuariEmpresaRequest;
 import com.smartpack.dto.EmpresaRequestDto;
 import com.smartpack.dto.EmpresaResponseDto;
+import com.smartpack.dto.UserResponseDto;
 import com.smartpack.services.EmpresaService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
@@ -84,6 +85,19 @@ public class EmpresaController {
     @Operation(summary = "Obtenir una empresa", description = "Mostrar una empresa filtrat pel ID")
     public ResponseEntity<EmpresaResponseDto> getEmpresaById(@PathVariable Long id) {
         return ResponseEntity.ok(this.empresaService.getEmpresaById(id));
+    }
+
+    /**
+     * Obtenir usuaris asignats a empresa
+     * 
+     * @param empresaId Long
+     * @return UserResponseDto
+     */
+    @GetMapping("/{empresaId}/usuaris")
+    @Operation(summary = "Llista d'usuaris assignats", description = "Obtén tots els usuaris assignats a una empresa")
+    public ResponseEntity<List<UserResponseDto>> getUsuarisAssignatsEmpresa(@PathVariable Long empresaId) {
+        List<UserResponseDto> usuaris = empresaService.getUsuarisByEmpresa(empresaId);
+        return ResponseEntity.ok(usuaris);
     }
 
     /**

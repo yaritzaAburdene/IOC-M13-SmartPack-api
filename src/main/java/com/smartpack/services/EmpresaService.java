@@ -3,6 +3,7 @@ package com.smartpack.services;
 import com.smartpack.dto.AssignarUsuariEmpresaRequest;
 import com.smartpack.dto.EmpresaRequestDto;
 import com.smartpack.dto.EmpresaResponseDto;
+import com.smartpack.dto.UserResponseDto;
 import com.smartpack.models.Empresa;
 import com.smartpack.models.Usuari;
 import com.smartpack.repositories.EmpresaRepository;
@@ -183,6 +184,21 @@ public class EmpresaService {
     }
 
     /**
+     * Obtenir tots el usuaris d'una empresa
+     * 
+     * @param empresaId Long
+     * @return UserResponseDto list
+     */
+    public List<UserResponseDto> getUsuarisByEmpresa(Long empresaId) {
+        Empresa empresa = empresaRepository.findById(empresaId)
+                .orElseThrow(() -> new EntityNotFoundException("Empresa no trobada"));
+
+        return empresa.getUsuaris().stream()
+                .map(this::convertirAUsuariResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Convert To Response DTO
      * 
      * @param empresa Empresa
@@ -196,6 +212,24 @@ public class EmpresaService {
         dto.setNif(empresa.getNif());
         dto.setAdreça(empresa.getAdreça());
         dto.setTelefon(empresa.getTelefon());
+        return dto;
+    }
+
+    /**
+     * convertirAUsuariResponseDto
+     * 
+     * @param usuari Usuari
+     * @return UserResponseDto
+     */
+    private UserResponseDto convertirAUsuariResponseDto(Usuari usuari) {
+        UserResponseDto dto = new UserResponseDto();
+        dto.setId(usuari.getId());
+        dto.setEmail(usuari.getEmail());
+        dto.setNom(usuari.getNom());
+        dto.setCognom(usuari.getCognom());
+        dto.setTelefon(usuari.getTelefon());
+        dto.setAdreça(usuari.getAdreça());
+        dto.setObservacio(usuari.getObservacio());
         return dto;
     }
 }
