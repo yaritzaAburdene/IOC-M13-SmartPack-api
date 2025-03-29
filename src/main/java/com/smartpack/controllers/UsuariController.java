@@ -6,9 +6,11 @@ import com.smartpack.dto.UserResponseDto;
 import com.smartpack.services.UsuariService;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -29,6 +31,20 @@ public class UsuariController {
      */
     public UsuariController(UsuariService usuariService) {
         this.usuariService = usuariService;
+    }
+
+    /**
+     * Usuari autenticat
+     * 
+     * @param authentication Authentication
+     * @return UserResponseDto
+     */
+    @GetMapping("/me")
+    @Operation(summary = "Obté l'usuari autenticat", description = "Aquest endpoint retorna la informació de l'usuari actualment autenticat a partir del token JWT.")
+    public ResponseEntity<UserResponseDto> getCurrentUser(Authentication authentication) {
+        String email = authentication.getName(); // obtenir del token
+        UserResponseDto userDto = usuariService.getUserByEmail(email);
+        return ResponseEntity.ok(userDto);
     }
 
     /**

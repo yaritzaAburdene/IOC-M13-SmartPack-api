@@ -66,7 +66,7 @@ public class UsuariService {
 
     /**
      * Get User By Id
-     * Obté una
+     * Obté l'usuari per Id
      * 
      * @param id long
      * @return UserResponseDto
@@ -74,6 +74,19 @@ public class UsuariService {
     public UserResponseDto getUserById(Long id) {
         Usuari user = usuariRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuari no trobat"));
+        return convertToResponseDto(user);
+    }
+
+    /**
+     * Get Usuari By Email
+     * 
+     * @param email String
+     * @return UserResponseDto
+     */
+    public UserResponseDto getUserByEmail(String email) {
+        Usuari user = usuariRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Usuari no trobat"));
+
         return convertToResponseDto(user);
     }
 
@@ -174,6 +187,7 @@ public class UsuariService {
         dto.setTelefon(user.getTelefon());
         dto.setAdreça(user.getAdreça());
         dto.setObservacio(user.getObservacio());
+        dto.setEmpresaId(user.getEmpresa() != null ? user.getEmpresa().getId() : null);
         return dto;
     }
 }
