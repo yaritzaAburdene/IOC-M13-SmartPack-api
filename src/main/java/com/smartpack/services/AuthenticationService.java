@@ -87,8 +87,14 @@ public class AuthenticationService {
                         input.getEmail(),
                         input.getPassword()));
 
-        return usuariRepository.findByEmail(input.getEmail())
-                .orElseThrow();
+        Usuari usuari = usuariRepository.findByEmail(input.getEmail())
+                .orElseThrow(() -> new RuntimeException("Usuari no trobat."));
+
+        if (!usuari.isActive()) {
+            throw new RuntimeException("Aquest compte està desactivat.");
+        }
+
+        return usuari;
     }
 
     /**
