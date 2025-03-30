@@ -90,6 +90,12 @@ public class Usuari implements UserDetails {
     private Empresa empresa;
 
     /**
+     * Usuari asociat a transportista
+     */
+    @OneToOne(mappedBy = "usuari", cascade = CascadeType.ALL)
+    private Transportista transportista;
+
+    /**
      * Activacio d'usuari
      */
     @Column(name = "active", nullable = false)

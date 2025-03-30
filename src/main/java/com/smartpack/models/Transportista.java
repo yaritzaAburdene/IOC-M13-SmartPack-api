@@ -19,6 +19,13 @@ public class Transportista {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "usuari_id", referencedColumnName = "id", nullable = false)
+    private Usuari usuari;
+
+    @Column(nullable = false)
+    private String llicencia;
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
