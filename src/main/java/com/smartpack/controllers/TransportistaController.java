@@ -16,6 +16,8 @@ import com.smartpack.dto.TransportistaResponseDto;
 import com.smartpack.services.TransportistaService;
 
 import org.springframework.web.bind.annotation.RequestBody;
+
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 /**
@@ -24,6 +26,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/transportista")
 @CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Transportista", description = "Endpoints per gestionar transportistes")
 public class TransportistaController {
 

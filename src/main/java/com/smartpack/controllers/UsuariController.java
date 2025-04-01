@@ -19,6 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping("/usuari")
 @CrossOrigin(origins = "*")
+@SecurityRequirement(name = "bearerAuth")
 @Tag(name = "Usuaris", description = "Endpoints per gestionar usuaris")
 public class UsuariController {
 
