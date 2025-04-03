@@ -20,14 +20,21 @@ public class Servei {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String detalls;
+    private Estat estat;
 
-    @Column(nullable = false)
-    private int pes;
+    @ManyToOne
+    @JoinColumn(name = "usuari_id", nullable = false)
+    private Usuari usuari;
 
-    @Column(nullable = false)
-    private String mida;
+    @ManyToOne
+    @JoinColumn(name = "transportista_id", nullable = true)
+    private Transportista transportista;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "paquet_id", referencedColumnName = "id", nullable = false)
+    private Paquet paquet;
 
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
