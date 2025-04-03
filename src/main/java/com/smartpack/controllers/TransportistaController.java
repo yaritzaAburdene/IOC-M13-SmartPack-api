@@ -129,4 +129,32 @@ public class TransportistaController {
         transportistaService.assignVehicleToTransportista(transportistaId, vehicleId);
         return ResponseEntity.ok(new ApiResponse("Vehicle assignat correctament al transportista."));
     }
+
+    /**
+     * Desassignar un vehicle
+     * 
+     * @param id Long
+     * @return ApiResponse
+     */
+    @PatchMapping("/desassignar-vehicle/{id}")
+    @Operation(summary = "Desassigna un vehicle d'un transportista")
+    public ResponseEntity<ApiResponse> desassignarVehicle(@PathVariable Long id) {
+        transportistaService.desasignarVehicle(id);
+        return ResponseEntity.ok(new ApiResponse("Vehicle desassignat correctament"));
+    }
+
+    /**
+     * Desactiva un transportista
+     * Desactiva un transportista filtrat pel ID
+     * 
+     * @param id Long
+     * @return Void
+     */
+    @PatchMapping("/{id}/desactivate")
+    @Operation(summary = "Desactiva un transportista", description = "Desactiva un transportista filtrat pel ID")
+    public ResponseEntity<ApiResponse> desactivar(@PathVariable Long id) {
+        transportistaService.deshabilitarTransportista(id);
+        return ResponseEntity.ok(new ApiResponse("Transportista desactivat correctament."));
+    }
+
 }

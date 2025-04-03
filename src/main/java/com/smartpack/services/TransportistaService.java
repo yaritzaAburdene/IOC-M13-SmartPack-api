@@ -144,6 +144,18 @@ public class TransportistaService {
     }
 
     /**
+     * Desactivar Transportista
+     * 
+     * @param id long
+     */
+    public void deactivateTransportista(Long id) {
+        Transportista transportista = transportistaRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Transportista no trobat"));
+        transportista.setActive(false);
+        transportistaRepository.save(transportista);
+    }
+
+    /**
      * assignVehicleToTransportista
      * 
      * @param transportistaId Long
@@ -157,6 +169,23 @@ public class TransportistaService {
                 .orElseThrow(() -> new EntityNotFoundException("Vehicle no trobat"));
 
         transportista.setVehicle(vehicle);
+        transportistaRepository.save(transportista);
+    }
+
+    /**
+     * desasignarVehicle
+     * 
+     * @param transportistaId Long
+     */
+    public void desasignarVehicle(Long transportistaId) {
+        Transportista transportista = transportistaRepository.findById(transportistaId)
+                .orElseThrow(() -> new EntityNotFoundException("Transportista no trobat"));
+
+        if (transportista.getVehicle() == null) {
+            throw new IllegalStateException("Aquest transportista no té cap vehicle assignat");
+        }
+
+        transportista.setVehicle(null);
         transportistaRepository.save(transportista);
     }
 

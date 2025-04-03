@@ -82,8 +82,8 @@ public class VehicleController {
     }
 
     /**
-     * Desactiva un usuari
-     * Desactiva un usuari filtrat pel ID
+     * Desactiva un vehicle
+     * Desactiva un vehicle filtrat pel ID
      * 
      * @param id Long
      * @return Void

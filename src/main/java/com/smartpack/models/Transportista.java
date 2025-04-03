@@ -30,6 +30,9 @@ public class Transportista {
     @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = true)
     private Vehicle vehicle;
 
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
