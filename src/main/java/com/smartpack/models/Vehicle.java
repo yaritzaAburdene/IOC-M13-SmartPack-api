@@ -24,13 +24,19 @@ public class Vehicle {
     private String tipus;
 
     @Column(nullable = true)
-    private String model;
+    private String marca;
 
     @Column(nullable = true)
+    private String model;
+
+    @Column(nullable = true, unique = true)
     private String matricula;
 
     @Column(nullable = true)
     private String color;
+
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
 
     @OneToOne(mappedBy = "vehicle")
     private Transportista transportista;
