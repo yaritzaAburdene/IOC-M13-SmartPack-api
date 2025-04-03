@@ -78,6 +78,13 @@ public class TransportistaService {
         return convertirADto(transportista);
     }
 
+    public TransportistaResponseDto getTransportistaByUsuariId(Long usuariId) {
+        Transportista transportista = transportistaRepository.findByUsuariId(usuariId)
+                .orElseThrow(() -> new EntityNotFoundException("Transportista no trobat per aquest usuari"));
+
+        return convertirADto(transportista);
+    }
+
     private TransportistaResponseDto convertirADto(Transportista transportista) {
         TransportistaResponseDto dto = new TransportistaResponseDto();
         dto.setId(transportista.getId());
