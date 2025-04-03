@@ -1,14 +1,18 @@
 package com.smartpack.controllers;
 
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smartpack.dto.ApiResponse;
 import com.smartpack.dto.TransportistaRequestDto;
 import com.smartpack.dto.TransportistaResponseDto;
 import com.smartpack.services.TransportistaService;
@@ -95,5 +99,34 @@ public class TransportistaController {
     @Operation(summary = "Obtenir transportista per Usuari", description = "Obtenir transportista per Id Usuari")
     public ResponseEntity<TransportistaResponseDto> obtenirPerUsuari(@PathVariable Long usuariId) {
         return ResponseEntity.ok(transportistaService.getTransportistaByUsuariId(usuariId));
+    }
+
+    /**
+     * Obtenir transportistes per empresa
+     * Obtenir tots els transportistes d'una empresa
+     * 
+     * @param empresaId Long
+     * @return TransportistaResponseDto List
+     */
+    @GetMapping("/empresa/{empresaId}")
+    @Operation(summary = "Obtenir transportistes per empresa", description = "Obtenir tots els transportistes d'una empresa")
+    public ResponseEntity<List<TransportistaResponseDto>> obtenirPerEmpresa(@PathVariable Long empresaId) {
+        return ResponseEntity.ok(transportistaService.getTransportistesByEmpresa(empresaId));
+    }
+
+    /**
+     * Assignar vehicle a transportista
+     * Assigna un vehicle a un transportista
+     * 
+     * @param transportistaId Long
+     * @param vehicleId       Long
+     * @return ApiResponse
+     */
+    @PostMapping("/{transportistaId}/assignar-vehicle/{vehicleId}")
+    @Operation(summary = "Assignar vehicle a transportista", description = "Assigna un vehicle a un transportista")
+    public ResponseEntity<ApiResponse> assignVehicle(@PathVariable Long transportistaId,
+            @PathVariable Long vehicleId) {
+        transportistaService.assignVehicleToTransportista(transportistaId, vehicleId);
+        return ResponseEntity.ok(new ApiResponse("Vehicle assignat correctament al transportista."));
     }
 }

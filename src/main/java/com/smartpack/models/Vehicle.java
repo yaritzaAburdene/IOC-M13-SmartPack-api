@@ -20,6 +20,21 @@ public class Vehicle {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = true)
+    private String tipus;
+
+    @Column(nullable = true)
+    private String model;
+
+    @Column(nullable = true)
+    private String matricula;
+
+    @Column(nullable = true)
+    private String color;
+
+    @OneToOne(mappedBy = "vehicle")
+    private Transportista transportista;
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;

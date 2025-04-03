@@ -26,6 +26,10 @@ public class Transportista {
     @Column(nullable = false)
     private String llicencia;
 
+    @OneToOne
+    @JoinColumn(name = "vehicle_id", referencedColumnName = "id", nullable = true)
+    private Vehicle vehicle;
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
