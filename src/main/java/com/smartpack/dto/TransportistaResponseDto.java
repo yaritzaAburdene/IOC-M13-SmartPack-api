@@ -8,4 +8,5 @@ public class TransportistaResponseDto {
     private Long usuariId;
     private String usuariEmail;
     private String llicencia;
+    private VehicleDto vehicle;
 }

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.smartpack.dto.TransportistaRequestDto;
 import com.smartpack.dto.TransportistaResponseDto;
+import com.smartpack.dto.VehicleDto;
 import com.smartpack.models.Rol;
 import com.smartpack.models.Transportista;
 import com.smartpack.models.Usuari;
@@ -76,6 +77,11 @@ public class TransportistaService {
      * @return TransportistaResponseDto
      */
     public TransportistaResponseDto editarTransportista(Long id, TransportistaRequestDto request) {
+
+        if (request.getLlicencia() == null || request.getLlicencia().isBlank()) {
+            throw new IllegalArgumentException("La llicencia és obligatòria.");
+        }
+
         Transportista transportista = transportistaRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Transportista no trobat"));
 
@@ -201,6 +207,15 @@ public class TransportistaService {
         dto.setUsuariId(transportista.getUsuari().getId());
         dto.setUsuariEmail(transportista.getUsuari().getEmail());
         dto.setLlicencia(transportista.getLlicencia());
+        if (transportista.getVehicle() != null) {
+            VehicleDto vehicleDto = new VehicleDto();
+            vehicleDto.setId(transportista.getVehicle().getId());
+            vehicleDto.setMarca(transportista.getVehicle().getMarca());
+            vehicleDto.setModel(transportista.getVehicle().getModel());
+            vehicleDto.setMatricula(transportista.getVehicle().getMatricula());
+
+            dto.setVehicle(vehicleDto);
+        }
         return dto;
     }
 }
