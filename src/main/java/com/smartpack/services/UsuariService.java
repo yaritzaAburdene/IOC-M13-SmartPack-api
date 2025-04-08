@@ -118,7 +118,11 @@ public class UsuariService {
             usuari.setRole(Rol.ROLE_USER); // valor per defecte
         } else {
             try {
-                usuari.setRole(Rol.valueOf(request.getRole().replace("ROLE_", "").toUpperCase()));
+                String rawRole = request.getRole().toUpperCase();
+                if (!rawRole.startsWith("ROLE_")) {
+                    rawRole = "ROLE_" + rawRole;
+                }
+                usuari.setRole(Rol.valueOf(rawRole));
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException("El rol proporcionat no es vàlid: " + request.getRole());
             }
@@ -139,22 +143,40 @@ public class UsuariService {
         Usuari user = usuariRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Usuari no trobat"));
 
-        if (request.getEmail() != null)
+        if (request.getEmail() != null) {
             user.setEmail(request.getEmail());
-        if (request.getPassword() != null)
+        }
+        if (request.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
-        if (request.getNom() != null)
+        }
+        if (request.getNom() != null) {
             user.setNom(request.getNom());
-        if (request.getCognom() != null)
+        }
+        if (request.getCognom() != null) {
             user.setCognom(request.getCognom());
-        if (request.getTelefon() != null)
+        }
+        if (request.getTelefon() != null) {
             user.setTelefon(request.getTelefon());
-        if (request.getAdreça() != null)
+        }
+        if (request.getAdreça() != null) {
             user.setAdreça(request.getAdreça());
-        if (request.getObservacio() != null)
+        }
+
+        if (request.getObservacio() != null) {
             user.setObservacio(request.getObservacio());
-        if (request.getSecret() != null)
+        }
+
+        if (request.getSecret() != null) {
             user.setSecret(request.getSecret());
+        }
+
+        if (request.getRole() != null) {
+            String rawRole = request.getRole().toUpperCase();
+            if (!rawRole.startsWith("ROLE_")) {
+                rawRole = "ROLE_" + rawRole;
+            }
+            user.setRole(Rol.valueOf(rawRole));
+        }
 
         Usuari updatedUser = usuariRepository.save(user);
         return convertToResponseDto(updatedUser);
