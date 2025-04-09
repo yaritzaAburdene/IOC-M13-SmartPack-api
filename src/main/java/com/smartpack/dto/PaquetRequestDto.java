@@ -2,6 +2,9 @@ package com.smartpack.dto;
 
 import lombok.Data;
 
+/**
+ * Classe PaquetRequestDto
+ */
 @Data
 public class PaquetRequestDto {
     private String detalls;

@@ -13,7 +13,19 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, Long> {
 
+    /**
+     * findByTransportistaUsuariId
+     * 
+     * @param usuariId Long
+     * @return Vehicle List
+     */
     List<Vehicle> findByTransportistaUsuariId(Long usuariId);
 
+    /**
+     * findByTransportistaUsuariEmpresaId
+     * 
+     * @param empresaId Long
+     * @return Vehicle List
+     */
     List<Vehicle> findByTransportistaUsuariEmpresaId(Long empresaId);
 }

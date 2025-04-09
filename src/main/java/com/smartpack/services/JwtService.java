@@ -100,12 +100,12 @@ public class JwtService {
             long expiration) {
         return Jwts
                 .builder()
-                .setClaims(extraClaims)
+                .setClaims(extraClaims) // afegeix claims personalitzats
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + expiration))
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
-                .compact();
+                .signWith(getSignInKey(), SignatureAlgorithm.HS256) // signatura amb clau secreta
+                .compact(); // converteix tot en un JWT string
     }
 
     /**
@@ -160,6 +160,8 @@ public class JwtService {
 
     /**
      * Get Sign In key
+     * Converteix la clau secreta en un Key vàlid per a signar/verificar el token
+     * amb l'algorisme HMAC-SHA256.
      * 
      * @return Key
      */

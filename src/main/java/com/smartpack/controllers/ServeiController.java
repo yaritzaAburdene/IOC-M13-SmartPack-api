@@ -45,6 +45,12 @@ public class ServeiController {
         this.ServeiService = ServeiService;
     }
 
+    /**
+     * crearServei
+     * 
+     * @param request ServeiRequestDto
+     * @return ServeiResponseDto
+     */
     @PostMapping("/crear")
     @Operation(summary = "Crea un nou servei", description = "permet crear un nou servei.")
     public ResponseEntity<ServeiResponseDto> crearServei(@RequestBody ServeiRequestDto request) {
@@ -52,6 +58,13 @@ public class ServeiController {
         return ResponseEntity.ok(servei);
     }
 
+    /**
+     * editarServei
+     * 
+     * @param id      Long
+     * @param request ServeiRequestDto
+     * @return ServeiResponseDto
+     */
     @PutMapping("/{id}")
     @Operation(summary = "Modificar un servei", description = "permet modificar un servei ja existent.")
     public ResponseEntity<ServeiResponseDto> editarServei(@PathVariable Long id,
@@ -60,6 +73,38 @@ public class ServeiController {
         return ResponseEntity.ok(servei);
     }
 
+    /**
+     * getAllServeis
+     * 
+     * @return ServeiResponseDto List
+     */
+    @GetMapping("/list")
+    @Operation(summary = "Obtenir tots els serveis", description = "Mostrar tots els serveis activats")
+    public ResponseEntity<List<ServeiResponseDto>> getAllServeis() {
+        List<ServeiResponseDto> serveis = ServeiService.getAllServeis();
+        return ResponseEntity.ok(serveis);
+    }
+
+    /**
+     * getServeiById
+     * 
+     * @param id Long
+     * @return ServeiResponseDto
+     */
+    @GetMapping("/{id}")
+    @Operation(summary = "Obtenir un servei", description = "Mostrar un servei filtrat pel ID")
+    public ResponseEntity<ServeiResponseDto> getServeiById(@PathVariable Long id) {
+        ServeiResponseDto servei = ServeiService.getServeiById(id);
+        return ResponseEntity.ok(servei);
+    }
+
+    /**
+     * canviarEstatServei
+     * 
+     * @param serveiId Long
+     * @param request  CanviarEstatServeiRequestDto
+     * @return ServeiResponseDto
+     */
     @PatchMapping("/{serveiId}/estat")
     @Operation(summary = "Canviar estat a servei", description = "permet modificar l'estat al servei.")
     public ResponseEntity<ServeiResponseDto> canviarEstatServei(@PathVariable Long serveiId,
@@ -68,6 +113,12 @@ public class ServeiController {
         return ResponseEntity.ok(serveiActualitzat);
     }
 
+    /**
+     * obtenirServeisPerUsuari
+     * 
+     * @param usuariId Long
+     * @return ServeiResponseDto List
+     */
     @GetMapping("/usuari/{usuariId}")
     @Operation(summary = "Obtenir servei usuari", description = "Obtenir servei per usuari Id")
     public ResponseEntity<List<ServeiResponseDto>> obtenirServeisPerUsuari(@PathVariable Long usuariId) {
@@ -75,10 +126,29 @@ public class ServeiController {
         return ResponseEntity.ok(serveis);
     }
 
+    /**
+     * obtenirServeisPerTransportista
+     * 
+     * @param transportistaId Long
+     * @return ServeiResponseDto List
+     */
     @GetMapping("/transportista/{transportistaId}")
     @Operation(summary = "Obtenir servei transportista", description = "Obtenir servei per transportista Id")
     public ResponseEntity<List<ServeiResponseDto>> obtenirServeisPerTransportista(@PathVariable Long transportistaId) {
         List<ServeiResponseDto> serveis = ServeiService.getServeisByTransportistaId(transportistaId);
         return ResponseEntity.ok(serveis);
+    }
+
+    /**
+     * desactivarServei
+     * 
+     * @param id Long
+     * @return ApiResponse
+     */
+    @PatchMapping("/{id}/desactivar")
+    @Operation(summary = "Desactiva un servei", description = "Desactiva un servei filtrat pel ID")
+    public ResponseEntity<ApiResponse> desactivarServei(@PathVariable Long id) {
+        ServeiService.desactivarServei(id);
+        return ResponseEntity.ok(new ApiResponse("Servei desactivat correctament."));
     }
 }

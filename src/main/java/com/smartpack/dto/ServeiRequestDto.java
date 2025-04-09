@@ -3,6 +3,9 @@ package com.smartpack.dto;
 import com.smartpack.models.Estat;
 import lombok.Data;
 
+/**
+ * Classe ServeiRequestDto
+ */
 @Data
 public class ServeiRequestDto {
     private Estat estat;

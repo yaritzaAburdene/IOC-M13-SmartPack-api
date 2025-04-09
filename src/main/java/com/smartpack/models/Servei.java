@@ -36,6 +36,9 @@ public class Servei {
     @JoinColumn(name = "paquet_id", referencedColumnName = "id", nullable = false)
     private Paquet paquet;
 
+    @Column(name = "active", nullable = false)
+    private boolean active = true;
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;

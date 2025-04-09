@@ -4,6 +4,9 @@ import com.smartpack.models.Estat;
 
 import lombok.Data;
 
+/**
+ * Classe ServeiResponseDto
+ */
 @Data
 public class ServeiResponseDto {
     private Long id;

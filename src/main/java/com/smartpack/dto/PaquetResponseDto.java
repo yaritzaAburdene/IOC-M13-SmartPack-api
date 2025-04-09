@@ -2,6 +2,9 @@ package com.smartpack.dto;
 
 import lombok.Data;
 
+/**
+ * Classe PaquetResponseDto
+ */
 @Data
 public class PaquetResponseDto {
     private Long id;

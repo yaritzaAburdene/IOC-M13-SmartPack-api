@@ -47,6 +47,12 @@ public class ServeiService {
         this.paquetRepository = paquetRepository;
     }
 
+    /**
+     * Crear Servei
+     * 
+     * @param request ServeiRequestDto
+     * @return ServeiResponseDto
+     */
     public ServeiResponseDto crearServei(ServeiRequestDto request) {
         Usuari usuari = usuariRepository.findById(request.getUsuariId())
                 .orElseThrow(() -> new EntityNotFoundException("Usuari no trobat"));
@@ -80,6 +86,13 @@ public class ServeiService {
         return convertirADto(servei);
     }
 
+    /**
+     * editarServei
+     * 
+     * @param id      Long
+     * @param request ServeiRequestDto
+     * @return ServeiResponseDto
+     */
     public ServeiResponseDto editarServei(Long id, ServeiRequestDto request) {
         Servei servei = serveiRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
@@ -115,22 +128,48 @@ public class ServeiService {
         return convertirADto(servei);
     }
 
+    /**
+     * getServeiById
+     * 
+     * @param id Long
+     * @return ServeiResponseDto
+     */
     public ServeiResponseDto getServeiById(Long id) {
-        Servei servei = serveiRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
+        Servei servei = serveiRepository.findByIdAndActiveTrue(id)
+                .orElseThrow(() -> new EntityNotFoundException("Servei no trobat o està desactivat"));
         return convertirADto(servei);
     }
 
+    /**
+     * getServeisByUsuariId
+     * 
+     * @param usuariId Long
+     * @return ServeiResponseDto List
+     */
     public List<ServeiResponseDto> getServeisByUsuariId(Long usuariId) {
-        List<Servei> serveis = serveiRepository.findByUsuariId(usuariId);
-        return serveis.stream().map(this::convertirADto).collect(Collectors.toList());
+        return serveiRepository.findByUsuariIdAndActiveTrue(usuariId).stream()
+                .map(this::convertirADto)
+                .collect(Collectors.toList());
     }
 
+    /**
+     * getServeisByTransportistaId
+     * 
+     * @param transportistaId Long
+     * @return ServeiResponseDto List
+     */
     public List<ServeiResponseDto> getServeisByTransportistaId(Long transportistaId) {
-        List<Servei> serveis = serveiRepository.findByTransportistaId(transportistaId);
-        return serveis.stream().map(this::convertirADto).collect(Collectors.toList());
+        return serveiRepository.findByTransportistaIdAndActiveTrue(transportistaId).stream()
+                .map(this::convertirADto)
+                .collect(Collectors.toList());
     }
 
+    /**
+     * convertirADto
+     * 
+     * @param servei Servei
+     * @return ServeiResponseDto
+     */
     private ServeiResponseDto convertirADto(Servei servei) {
         ServeiResponseDto dto = new ServeiResponseDto();
         dto.setId(servei.getId());
@@ -141,6 +180,13 @@ public class ServeiService {
         return dto;
     }
 
+    /**
+     * canviarEstatServei
+     * 
+     * @param serveiId Long
+     * @param nouEstat Estat
+     * @return ServeiResponseDto
+     */
     public ServeiResponseDto canviarEstatServei(Long serveiId, Estat nouEstat) {
         Servei servei = serveiRepository.findById(serveiId)
                 .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
@@ -150,6 +196,38 @@ public class ServeiService {
         return convertirADto(servei);
     }
 
+    /**
+     * getAllServeis
+     * 
+     * @return ServeiResponseDto
+     */
+    public List<ServeiResponseDto> getAllServeis() {
+        return serveiRepository.findByActiveTrue().stream()
+                .map(this::convertirADto)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * desactivarServei
+     * 
+     * @param serveiId Long
+     * @return ServeiResponseDto
+     */
+    public ServeiResponseDto desactivarServei(Long serveiId) {
+        Servei servei = serveiRepository.findById(serveiId)
+                .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
+
+        servei.setActive(false);
+        serveiRepository.save(servei);
+        return convertirADto(servei);
+    }
+
+    /**
+     * convertirPaquetADto
+     * 
+     * @param paquet Paquet
+     * @return PaquetResponseDto
+     */
     private PaquetResponseDto convertirPaquetADto(Paquet paquet) {
         PaquetResponseDto dto = new PaquetResponseDto();
         dto.setId(paquet.getId());

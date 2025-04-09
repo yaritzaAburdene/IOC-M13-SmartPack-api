@@ -1,8 +1,6 @@
 package com.smartpack.services;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +26,13 @@ public class AdminService {
     private final TransportistaRepository transportistaRepository;
     private final VehicleRepository vehicleRepository;
 
+    /**
+     * getResumGeneral
+     * 
+     * @param usuariId  Long
+     * @param empresaId Long
+     * @return AdminDataResponse
+     */
     public AdminDataResponse getResumGeneral(Long usuariId, Long empresaId) {
         AdminDataResponse response = new AdminDataResponse();
 
@@ -65,6 +70,12 @@ public class AdminService {
         return response;
     }
 
+    /**
+     * convertirUsuariADto
+     * 
+     * @param usuari Usuari
+     * @return UserResponseDto
+     */
     private UserResponseDto convertirUsuariADto(Usuari usuari) {
         UserResponseDto dto = new UserResponseDto();
         dto.setId(usuari.getId());
@@ -75,6 +86,12 @@ public class AdminService {
         return dto;
     }
 
+    /**
+     * convertirTransportistaADto
+     * 
+     * @param t Transportista
+     * @return TransportistaResponseDto
+     */
     private TransportistaResponseDto convertirTransportistaADto(Transportista t) {
         TransportistaResponseDto dto = new TransportistaResponseDto();
         dto.setId(t.getId());
@@ -87,6 +104,12 @@ public class AdminService {
         return dto;
     }
 
+    /**
+     * convertirVehicleADto
+     * 
+     * @param v Vehicle
+     * @return VehicleDto
+     */
     private VehicleDto convertirVehicleADto(Vehicle v) {
         VehicleDto dto = new VehicleDto();
         dto.setId(v.getId());

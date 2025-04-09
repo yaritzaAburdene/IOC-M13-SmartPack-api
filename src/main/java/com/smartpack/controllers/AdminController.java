@@ -49,7 +49,15 @@ public class AdminController {
 
     private final AdminService adminService;
 
+    /**
+     * getResumGeneral
+     * 
+     * @param usuariId  Long
+     * @param empresaId Long
+     * @return AdminDataResponse
+     */
     @GetMapping("/resum")
+    @Operation(summary = "Obté tota la informacio filtrada per usuari i empresa")
     public ResponseEntity<AdminDataResponse> getResumGeneral(@RequestParam(required = false) Long usuariId,
             @RequestParam(required = false) Long empresaId) {
         AdminDataResponse dades = adminService.getResumGeneral(usuariId, empresaId);
