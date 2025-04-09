@@ -27,13 +27,13 @@ import org.springframework.web.server.ResponseStatusException;
 public class EmpresaService {
     @Autowired
     private EmpresaRepository empresaRepository;
-
+    @Autowired
     private UsuariRepository usuariRepository;
 
     /**
      * Constructor EmpresaService
      * 
-     * @param EmpresaRepository EmpresaRepository
+     * @param empresaRepository EmpresaRepository
      * @param usuariRepository  UsuariRepository
      */
     public EmpresaService(EmpresaRepository empresaRepository, UsuariRepository usuariRepository) {

@@ -18,6 +18,9 @@ import com.smartpack.repositories.TransportistaRepository;
 
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Classe AdminService
+ */
 @Service
 @RequiredArgsConstructor
 public class AdminService {

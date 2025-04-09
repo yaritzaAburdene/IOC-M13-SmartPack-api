@@ -72,8 +72,8 @@ public class VehicleController {
      * Obtenir vehicle
      * Obtenir vehicle per Id
      * 
-     * @param id
-     * @return
+     * @param id Long
+     * @return VehicleDto
      */
     @GetMapping("/{id}")
     @Operation(summary = "Obtenir vehicle", description = "Obtenir vehicle per Id")
@@ -98,7 +98,7 @@ public class VehicleController {
     /**
      * llistar Vehicles
      * 
-     * @return
+     * @return VehicleDto List
      */
     @GetMapping
     public ResponseEntity<List<VehicleDto>> llistar() {

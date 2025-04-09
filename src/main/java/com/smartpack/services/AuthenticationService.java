@@ -100,7 +100,8 @@ public class AuthenticationService {
     /**
      * Genera el token
      * 
-     * @param email String
+     * @param email  String
+     * @param secret String
      * @return Usuari
      */
     public String generateResetToken(String email, String secret) {

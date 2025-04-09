@@ -18,6 +18,9 @@ import com.smartpack.repositories.TransportistaRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Classe TransportistaService
+ */
 @Service
 public class TransportistaService {
 

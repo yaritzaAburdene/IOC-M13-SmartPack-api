@@ -183,6 +183,7 @@ public class GlobalExceptionHandler {
      * Exception
      * Excepcio generica
      * 
+     * @param request   HttpServletRequest
      * @param exception Exception
      * @return ProblemDetail
      */
