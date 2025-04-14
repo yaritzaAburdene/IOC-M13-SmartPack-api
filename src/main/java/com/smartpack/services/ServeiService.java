@@ -1,5 +1,6 @@
 package com.smartpack.services;
 
+import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class ServeiService {
     private final UsuariRepository usuariRepository;
     private final TransportistaRepository transportistaRepository;
     private final PaquetRepository paquetRepository;
+    private final QrCodeService qrCodeService;
 
     /**
      * Constructor ServeiService
@@ -40,11 +42,13 @@ public class ServeiService {
      * @param paquetRepository        PaquetRepository
      */
     public ServeiService(ServeiRepository serveiRepository, UsuariRepository usuariRepository,
-            TransportistaRepository transportistaRepository, PaquetRepository paquetRepository) {
+            TransportistaRepository transportistaRepository, PaquetRepository paquetRepository,
+            QrCodeService qrCodeService) {
         this.serveiRepository = serveiRepository;
         this.usuariRepository = usuariRepository;
         this.transportistaRepository = transportistaRepository;
         this.paquetRepository = paquetRepository;
+        this.qrCodeService = qrCodeService;
     }
 
     /**
@@ -71,10 +75,9 @@ public class ServeiService {
         paquet.setNomDestinatari(request.getPaquet().getNomDestinatari());
         paquet.setAdreçadestinatari(request.getPaquet().getAdreçadestinatari());
         paquet.setTelefondestinatari(request.getPaquet().getTelefondestinatari());
-        paquet.setCodiqr(request.getPaquet().getCodiqr());
-
         paquetRepository.save(paquet);
 
+        // Crear Servei
         Servei servei = new Servei();
         servei.setUsuari(usuari);
         servei.setTransportista(transportista);
@@ -82,6 +85,24 @@ public class ServeiService {
         servei.setEstat(request.getEstat());
 
         serveiRepository.save(servei);
+
+        // Generar QR
+        // informació necessaria per afegir al qr
+        String textQR = "Servei Codi: [ " + servei.getId() + " ] " + paquet.getNomDestinatari() + " - " +
+                paquet.getAdreçadestinatari() + " - " +
+                paquet.getTelefondestinatari();
+
+        try {
+            byte[] qrImage = qrCodeService.generateQrCodeImage(textQR, 200, 200);
+            String qrBase64 = Base64.getEncoder().encodeToString(qrImage);
+            paquet.setCodiqr(qrBase64);
+            paquetRepository.save(paquet);
+        } catch (Exception e) {
+            // Si falla ho deixem a null
+            e.printStackTrace();
+            paquet.setCodiqr(null);
+            paquetRepository.save(paquet);
+        }
 
         return convertirADto(servei);
     }
@@ -115,7 +136,27 @@ public class ServeiService {
             paquet.setNomDestinatari(paquetDto.getNomDestinatari());
             paquet.setAdreçadestinatari(paquetDto.getAdreçadestinatari());
             paquet.setTelefondestinatari(paquetDto.getTelefondestinatari());
-            paquet.setCodiqr(paquetDto.getCodiqr());
+            // Comprovació per generar qr
+            if (paquet.getNomDestinatari() != paquetDto.getNomDestinatari() ||
+                    paquet.getAdreçadestinatari() != paquetDto.getAdreçadestinatari() ||
+                    paquet.getTelefondestinatari() != paquetDto.getTelefondestinatari()) {
+
+                // Generar QR
+                // informació necessaria per afegir al qr
+                String textQR = "Servei Codi: [ " + servei.getId() + " ] " + paquet.getNomDestinatari() + " - " +
+                        paquet.getAdreçadestinatari() + " - " +
+                        paquet.getTelefondestinatari();
+
+                try {
+                    byte[] qrImage = qrCodeService.generateQrCodeImage(textQR, 200, 200);
+                    String qrBase64 = Base64.getEncoder().encodeToString(qrImage);
+                    paquet.setCodiqr(qrBase64);
+                } catch (Exception e) {
+                    // Si falla ho deixem a null
+                    e.printStackTrace();
+                    paquet.setCodiqr(null);
+                }
+            }
             paquetRepository.save(paquet);
         }
 
@@ -220,6 +261,39 @@ public class ServeiService {
         servei.setActive(false);
         serveiRepository.save(servei);
         return convertirADto(servei);
+    }
+
+    /**
+     * regenerarCodiQr
+     * 
+     * @param serveiId Long
+     * @return ServeiResponseDto
+     */
+    public ServeiResponseDto regenerarCodiQrPorServei(Long serveiId) {
+        Servei servei = serveiRepository.findById(serveiId)
+                .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
+
+        Paquet paquet = servei.getPaquet();
+        if (paquet == null) {
+            throw new EntityNotFoundException("El servei no té cap paquet associat");
+        }
+
+        // Generar QR
+        // informació necessaria per afegir al qr
+        String textQR = "Servei Codi: [ " + servei.getId() + " ] " + paquet.getNomDestinatari() + " - " +
+                paquet.getAdreçadestinatari() + " - " +
+                paquet.getTelefondestinatari();
+
+        try {
+            byte[] qrImage = qrCodeService.generateQrCodeImage(textQR, 200, 200);
+            String qrBase64 = Base64.getEncoder().encodeToString(qrImage);
+            paquet.setCodiqr(qrBase64);
+            paquetRepository.save(paquet);
+
+            return convertirADto(servei);
+        } catch (Exception e) {
+            throw new RuntimeException("No s'ha pogut generar el codi QR", e);
+        }
     }
 
     /**

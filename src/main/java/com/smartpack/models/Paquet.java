@@ -38,7 +38,7 @@ public class Paquet {
     @Column(nullable = false)
     private String telefondestinatari;
 
-    @Column(nullable = true)
+    @Column(nullable = true, columnDefinition = "LONGTEXT")
     private String codiqr;
 
     @OneToOne(mappedBy = "paquet")

@@ -151,4 +151,16 @@ public class ServeiController {
         ServeiService.desactivarServei(id);
         return ResponseEntity.ok(new ApiResponse("Servei desactivat correctament."));
     }
+
+    /**
+     * regenerarQrPerServei
+     * 
+     * @param id Long
+     * @return ServeiResponseDto
+     */
+    @PostMapping("/{id}/regenerar-qr")
+    public ResponseEntity<ServeiResponseDto> regenerarQrPerServei(@PathVariable Long id) {
+        ServeiResponseDto qrBase64 = ServeiService.regenerarCodiQrPorServei(id);
+        return ResponseEntity.ok(qrBase64);
+    }
 }
