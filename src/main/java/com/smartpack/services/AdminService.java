@@ -1,19 +1,24 @@
 package com.smartpack.services;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
 import com.smartpack.dto.AdminDataResponse;
+import com.smartpack.dto.FacturaResponseDto;
 import com.smartpack.dto.TransportistaResponseDto;
 import com.smartpack.dto.UserResponseDto;
 import com.smartpack.dto.VehicleDto;
+import com.smartpack.models.Factura;
 import com.smartpack.models.Transportista;
 import com.smartpack.models.Usuari;
 import com.smartpack.models.Vehicle;
 import com.smartpack.repositories.UsuariRepository;
 import com.smartpack.repositories.VehicleRepository;
+import com.smartpack.repositories.FacturaRepository;
 import com.smartpack.repositories.TransportistaRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +33,7 @@ public class AdminService {
     private final UsuariRepository usuariRepository;
     private final TransportistaRepository transportistaRepository;
     private final VehicleRepository vehicleRepository;
+    private final FacturaRepository facturaRepository;
 
     /**
      * getResumGeneral
@@ -71,6 +77,20 @@ public class AdminService {
         response.setVehicles(vehicles.stream().map(this::convertirVehicleADto).collect(Collectors.toList()));
 
         return response;
+    }
+
+    /**
+     * getAllFactures
+     * 
+     * @param usuariId Long
+     * @param desde    LocalDate
+     * @param fins     LocalDate
+     * @return FacturaResponseDto List
+     */
+    public List<FacturaResponseDto> getAllFactures() {
+        List<Factura> factures;
+        factures = facturaRepository.findAll();
+        return factures.stream().map(FacturaResponseDto::new).toList();
     }
 
     /**

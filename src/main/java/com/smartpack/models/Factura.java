@@ -32,6 +32,14 @@ public class Factura {
     @Column(nullable = false)
     private Date data;
 
+    @ManyToOne
+    @JoinColumn(name = "servei_id", nullable = false)
+    private Servei servei;
+
+    @ManyToOne
+    @JoinColumn(name = "usuari_id", nullable = false)
+    private Usuari usuari;
+
     @CreationTimestamp
     @Column(updatable = false, name = "created_at")
     private Date createdAt;
