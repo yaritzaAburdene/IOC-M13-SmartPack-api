@@ -32,8 +32,14 @@ public class Factura {
     @Column(nullable = false)
     private Date data;
 
-    @ManyToOne
-    @JoinColumn(name = "servei_id", nullable = false)
+    @Column(nullable = false)
+    private boolean pagat = false;
+
+    @Column(name = "metode_pagament")
+    private String metodePagament;
+
+    @OneToOne
+    @JoinColumn(name = "servei_id", nullable = false, unique = true)
     private Servei servei;
 
     @ManyToOne

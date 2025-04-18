@@ -18,7 +18,14 @@ public class FacturaResponseDto {
     private Date data;
     private Long serveiId;
     private Long usuariId;
+    private boolean pagat;
+    private String metodePagament;
 
+    /**
+     * FacturaResponseDto
+     * 
+     * @param factura Factura
+     */
     public FacturaResponseDto(Factura factura) {
         this.id = factura.getId();
         this.numFactura = factura.getNumFactura();
@@ -27,5 +34,7 @@ public class FacturaResponseDto {
         this.data = factura.getData();
         this.serveiId = factura.getServei().getId();
         this.usuariId = factura.getUsuari().getId();
+        this.pagat = factura.isPagat();
+        this.metodePagament = factura.getMetodePagament();
     }
 }

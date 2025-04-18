@@ -16,6 +16,7 @@ import com.smartpack.dto.ApiResponse;
 import com.smartpack.dto.CanviarEstatServeiRequestDto;
 import com.smartpack.dto.ServeiRequestDto;
 import com.smartpack.dto.ServeiResponseDto;
+import com.smartpack.models.ServeiHistorial;
 import com.smartpack.services.ServeiService;
 
 import org.springframework.web.bind.annotation.RequestBody;
@@ -159,8 +160,22 @@ public class ServeiController {
      * @return ServeiResponseDto
      */
     @PostMapping("/{id}/regenerar-qr")
+    @Operation(summary = "Generar QR", description = "Generar QR amb Id service")
     public ResponseEntity<ServeiResponseDto> regenerarQrPerServei(@PathVariable Long id) {
         ServeiResponseDto qrBase64 = ServeiService.regenerarCodiQrPorServei(id);
         return ResponseEntity.ok(qrBase64);
+    }
+
+    /**
+     * getHistorialPerServei
+     * 
+     * @param serveiId Long
+     * @return ServeiHistorial List
+     */
+    @GetMapping("/{serveiId}/historial")
+    @Operation(summary = "Obté historial d'un servei", description = "Generar QR amb Id service")
+    public ResponseEntity<List<ServeiHistorial>> getHistorialPerServei(@PathVariable Long serveiId) {
+        List<ServeiHistorial> historial = ServeiService.getHistorialPerServei(serveiId);
+        return ResponseEntity.ok(historial);
     }
 }

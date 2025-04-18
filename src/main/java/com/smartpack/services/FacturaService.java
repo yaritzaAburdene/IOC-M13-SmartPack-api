@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.smartpack.dto.FacturaResponseDto;
 import com.smartpack.models.Estat;
@@ -16,17 +17,32 @@ import com.smartpack.repositories.ServeiRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+/**
+ * Classe FacturaService
+ */
 @Service
 public class FacturaService {
 
     private final ServeiRepository serveiRepository;
     private final FacturaRepository facturaRepository;
 
+    /**
+     * Constructor FacturaService
+     * 
+     * @param serveiRepository  ServeiRepository
+     * @param facturaRepository FacturaRepository
+     */
     public FacturaService(ServeiRepository serveiRepository, FacturaRepository facturaRepository) {
         this.serveiRepository = serveiRepository;
         this.facturaRepository = facturaRepository;
     }
 
+    /**
+     * generarFactura
+     * 
+     * @param serveiId Long
+     * @return FacturaResponseDto
+     */
     public FacturaResponseDto generarFactura(Long serveiId) {
         Servei servei = serveiRepository.findById(serveiId)
                 .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
@@ -37,7 +53,7 @@ public class FacturaService {
 
         // Calcular preu
         // TODO: comentar amb els companys el preu del servei
-        int preu = 20; // provicional
+        int preu = servei.getPaquet().getPes() * 2; // 2€ por kilo
         int iva = (int) (preu * 0.21); // 21% de IVA
 
         Factura factura = new Factura();
@@ -49,6 +65,39 @@ public class FacturaService {
         factura.setUsuari(servei.getUsuari());
 
         facturaRepository.save(factura);
+
+        return new FacturaResponseDto(factura);
+    }
+
+    /**
+     * pagar
+     * 
+     * @param id Long
+     * @return FacturaResponseDto
+     */
+    public FacturaResponseDto pagar(Long id) {
+        Factura factura = facturaRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Factura no trobada"));
+
+        // TODO: no enviar error si no info
+        if (factura.isPagat()) {
+            throw new IllegalStateException("La factura ja està marcada com a pagada.");
+        }
+
+        factura.setPagat(true);
+        facturaRepository.save(factura);
+        return new FacturaResponseDto(factura);
+    }
+
+    /**
+     * getFacturaPerServei
+     * 
+     * @param serveiId Long
+     * @return FacturaResponseDto
+     */
+    public FacturaResponseDto getFacturaPerServei(@PathVariable Long serveiId) {
+        Factura factura = facturaRepository.findByServeiId(serveiId)
+                .orElseThrow(() -> new EntityNotFoundException("Factura no trobada per aquest servei"));
 
         return new FacturaResponseDto(factura);
     }

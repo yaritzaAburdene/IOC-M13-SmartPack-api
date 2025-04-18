@@ -1,5 +1,6 @@
 package com.smartpack.services;
 
+import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,14 +12,17 @@ import com.smartpack.dto.ServeiResponseDto;
 import com.smartpack.models.Estat;
 import com.smartpack.models.Paquet;
 import com.smartpack.models.Servei;
+import com.smartpack.models.ServeiHistorial;
 import com.smartpack.models.Transportista;
 import com.smartpack.models.Usuari;
 import com.smartpack.repositories.ServeiRepository;
 import com.smartpack.repositories.TransportistaRepository;
 import com.smartpack.repositories.UsuariRepository;
 import com.smartpack.repositories.PaquetRepository;
+import com.smartpack.repositories.ServeiHistorialRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.stereotype.Service;
 
 /**
@@ -32,6 +36,7 @@ public class ServeiService {
     private final TransportistaRepository transportistaRepository;
     private final PaquetRepository paquetRepository;
     private final QrCodeService qrCodeService;
+    private final ServeiHistorialRepository serveiHistorialRepository;
 
     /**
      * Constructor ServeiService
@@ -43,12 +48,13 @@ public class ServeiService {
      */
     public ServeiService(ServeiRepository serveiRepository, UsuariRepository usuariRepository,
             TransportistaRepository transportistaRepository, PaquetRepository paquetRepository,
-            QrCodeService qrCodeService) {
+            QrCodeService qrCodeService, ServeiHistorialRepository serveiHistorialRepository) {
         this.serveiRepository = serveiRepository;
         this.usuariRepository = usuariRepository;
         this.transportistaRepository = transportistaRepository;
         this.paquetRepository = paquetRepository;
         this.qrCodeService = qrCodeService;
+        this.serveiHistorialRepository = serveiHistorialRepository;
     }
 
     /**
@@ -65,6 +71,10 @@ public class ServeiService {
         if (request.getTransportistaId() != null) {
             transportista = transportistaRepository.findById(request.getTransportistaId())
                     .orElseThrow(() -> new EntityNotFoundException("Transportista no trobat"));
+        }
+
+        if (request.getPaquet().getPes() <= 0) {
+            throw new IllegalArgumentException("El pes del paquet és obligatori i ha de ser major que 0.");
         }
 
         // Crear paquet
@@ -104,6 +114,8 @@ public class ServeiService {
             paquetRepository.save(paquet);
         }
 
+        guardarCanviHistorial(servei, "CREACIÓ", "Servei creat per l'usuari");
+
         return convertirADto(servei);
     }
 
@@ -129,6 +141,11 @@ public class ServeiService {
 
         Paquet paquet = servei.getPaquet(); // mantenim el paquet actual
         PaquetRequestDto paquetDto = request.getPaquet();
+
+        if (paquetDto.getPes() <= 0) {
+            throw new IllegalArgumentException("El pes del paquet és obligatori i ha de ser major que 0.");
+        }
+
         if (paquetDto != null) {
             paquet.setDetalls(paquetDto.getDetalls());
             paquet.setPes(paquetDto.getPes());
@@ -156,6 +173,7 @@ public class ServeiService {
                     e.printStackTrace();
                     paquet.setCodiqr(null);
                 }
+                guardarCanviHistorial(servei, "MODIFICACIÓ", "Canvi destinatari");
             }
             paquetRepository.save(paquet);
         }
@@ -234,6 +252,8 @@ public class ServeiService {
 
         servei.setEstat(nouEstat);
         serveiRepository.save(servei);
+        guardarCanviHistorial(servei, "ESTAT", "Estat canviat a ENVIAT");
+
         return convertirADto(servei);
     }
 
@@ -294,6 +314,37 @@ public class ServeiService {
         } catch (Exception e) {
             throw new RuntimeException("No s'ha pogut generar el codi QR", e);
         }
+    }
+
+    /**
+     * getHistorialPerServei
+     * 
+     * @param serveiId Long
+     * @return
+     */
+    public List<ServeiHistorial> getHistorialPerServei(Long serveiId) {
+        List<ServeiHistorial> historial = serveiHistorialRepository.findByServeiIdOrderByDataCanviAsc(serveiId);
+        return historial;
+    }
+
+    /**
+     * guardarCanviHistorial
+     * 
+     * @param servei     Servei
+     * @param tipusCanvi String
+     * @param descripcio String
+     */
+    private void guardarCanviHistorial(Servei servei, String tipusCanvi, String descripcio) {
+
+        ServeiHistorial historial = new ServeiHistorial();
+        historial.setServei(servei);
+        historial.setEstat(servei.getEstat().name());
+        historial.setTipusCanvi(tipusCanvi);
+        historial.setDescripcioCanvi(descripcio);
+        historial.setAdreçaDestinatari(servei.getPaquet().getAdreçadestinatari());
+        historial.setDataCanvi(LocalDateTime.now());
+
+        serveiHistorialRepository.save(historial);
     }
 
     /**

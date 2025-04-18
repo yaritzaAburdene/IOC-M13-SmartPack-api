@@ -9,10 +9,12 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.smartpack.dto.ApiResponse;
 import com.smartpack.dto.FacturaResponseDto;
 import com.smartpack.services.FacturaService;
 
@@ -46,6 +48,32 @@ public class FacturaController {
     @Operation(summary = "Genera una factura", description = "Genera un factura per ID servei.")
     public ResponseEntity<FacturaResponseDto> generarFactura(@PathVariable Long serveiId) {
         FacturaResponseDto factura = facturaService.generarFactura(serveiId);
+        return ResponseEntity.ok(factura);
+    }
+
+    /**
+     * marcarFacturaComPagada
+     * 
+     * @param id Long
+     * @return ApiResponse
+     */
+    @PutMapping("/{id}/pagar")
+    @Operation(summary = "Pagar una factura", description = "Genera un factura per ID servei.")
+    public ResponseEntity<ApiResponse> marcarFacturaComPagada(@PathVariable Long id) {
+        FacturaResponseDto factura = facturaService.pagar(id);
+        return ResponseEntity.ok(new ApiResponse("Factura pagada"));
+    }
+
+    /**
+     * getFacturaPerServei
+     * 
+     * @param serveiId Long
+     * @return FacturaResponseDto
+     */
+    @GetMapping("/servei/{serveiId}")
+    @Operation(summary = "Obtenir factura", description = "Obé la factura per servei ID.")
+    public ResponseEntity<FacturaResponseDto> getFacturaPerServei(@PathVariable Long serveiId) {
+        FacturaResponseDto factura = facturaService.getFacturaPerServei(serveiId);
         return ResponseEntity.ok(factura);
     }
 

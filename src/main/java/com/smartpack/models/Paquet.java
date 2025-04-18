@@ -23,7 +23,7 @@ public class Paquet {
     @Column(nullable = true)
     private String detalls;
 
-    @Column(nullable = true)
+    @Column(nullable = false)
     private int pes;
 
     @Column(nullable = true)
