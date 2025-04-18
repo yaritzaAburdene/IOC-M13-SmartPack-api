@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import java.util.Optional;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -51,20 +52,26 @@ public class FacturaService {
             throw new IllegalStateException("No es pot generar la factura si el servei no està ENTREGAT");
         }
 
-        // Calcular preu
-        // TODO: comentar amb els companys el preu del servei
-        int preu = servei.getPaquet().getPes() * 2; // 2€ por kilo
-        int iva = (int) (preu * 0.21); // 21% de IVA
+        Optional<Factura> facturaExist = facturaRepository.findByServeiId(serveiId);
+        Factura factura;
+        if (!facturaExist.isPresent()) {
+            // Calcular preu
+            // TODO: comentar amb els companys el preu del servei
+            int preu = servei.getPaquet().getPes() * 2; // 2€ por kilo
+            int iva = (int) (preu * 0.21); // 21% de IVA
 
-        Factura factura = new Factura();
-        factura.setNumFactura(UUID.randomUUID().toString().substring(0, 8).toUpperCase());
-        factura.setPreu(preu);
-        factura.setIva(iva);
-        factura.setData(new Date());
-        factura.setServei(servei);
-        factura.setUsuari(servei.getUsuari());
+            factura = new Factura();
+            factura.setNumFactura(UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+            factura.setPreu(preu);
+            factura.setIva(iva);
+            factura.setData(new Date());
+            factura.setServei(servei);
+            factura.setUsuari(servei.getUsuari());
 
-        facturaRepository.save(factura);
+            facturaRepository.save(factura);
+        } else {
+            factura = facturaExist.get();
+        }
 
         return new FacturaResponseDto(factura);
     }

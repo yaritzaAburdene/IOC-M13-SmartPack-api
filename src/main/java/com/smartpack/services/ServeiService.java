@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import com.smartpack.dto.PaquetRequestDto;
 import com.smartpack.dto.PaquetResponseDto;
+import com.smartpack.dto.ServeiHistorialDto;
 import com.smartpack.dto.ServeiRequestDto;
 import com.smartpack.dto.ServeiResponseDto;
 import com.smartpack.models.Estat;
@@ -322,9 +323,11 @@ public class ServeiService {
      * @param serveiId Long
      * @return
      */
-    public List<ServeiHistorial> getHistorialPerServei(Long serveiId) {
+    public List<ServeiHistorialDto> getHistorialPerServei(Long serveiId) {
         List<ServeiHistorial> historial = serveiHistorialRepository.findByServeiIdOrderByDataCanviAsc(serveiId);
-        return historial;
+        return historial.stream()
+                .map(ServeiHistorialDto::new)
+                .collect(Collectors.toList());
     }
 
     /**
