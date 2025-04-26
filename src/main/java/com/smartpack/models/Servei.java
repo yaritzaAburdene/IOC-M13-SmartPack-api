@@ -32,7 +32,7 @@ public class Servei {
     @JoinColumn(name = "transportista_id", nullable = true)
     private Transportista transportista;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne
     @JoinColumn(name = "paquet_id", referencedColumnName = "id", nullable = false)
     private Paquet paquet;
 

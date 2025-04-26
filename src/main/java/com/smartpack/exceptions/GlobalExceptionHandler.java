@@ -193,7 +193,7 @@ public class GlobalExceptionHandler {
 
         if (path.startsWith("/v3/api-docs") || path.startsWith("/swagger-ui")) {
             log.warn("Swagger error ignorado: {}", exception.getMessage());
-            return null; // <-- ¡no lances una excepción aquí!
+            return null;
         }
 
         log.error("Error inesperat al servidor", exception);

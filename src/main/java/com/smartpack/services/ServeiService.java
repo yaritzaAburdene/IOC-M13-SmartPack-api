@@ -69,10 +69,6 @@ public class ServeiService {
                 .orElseThrow(() -> new EntityNotFoundException("Usuari no trobat"));
 
         Transportista transportista = null;
-        if (request.getTransportistaId() != null) {
-            transportista = transportistaRepository.findById(request.getTransportistaId())
-                    .orElseThrow(() -> new EntityNotFoundException("Transportista no trobat"));
-        }
 
         if (request.getPaquet().getPes() <= 0) {
             throw new IllegalArgumentException("El pes del paquet és obligatori i ha de ser major que 0.");

@@ -17,7 +17,6 @@ import com.smartpack.dto.CanviarEstatServeiRequestDto;
 import com.smartpack.dto.ServeiHistorialDto;
 import com.smartpack.dto.ServeiRequestDto;
 import com.smartpack.dto.ServeiResponseDto;
-import com.smartpack.models.ServeiHistorial;
 import com.smartpack.services.ServeiService;
 
 import org.springframework.web.bind.annotation.RequestBody;
