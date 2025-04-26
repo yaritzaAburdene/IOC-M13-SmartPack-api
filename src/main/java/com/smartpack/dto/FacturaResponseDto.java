@@ -13,8 +13,9 @@ import lombok.Data;
 public class FacturaResponseDto {
     private Long id;
     private String numFactura;
-    private int preu;
-    private int iva;
+    private double preu;
+    private double iva;
+    private double total;
     private Date data;
     private Long serveiId;
     private Long usuariId;
@@ -31,6 +32,7 @@ public class FacturaResponseDto {
         this.numFactura = factura.getNumFactura();
         this.preu = factura.getPreu();
         this.iva = factura.getIva();
+        this.total = factura.getTotal();
         this.data = factura.getData();
         this.serveiId = factura.getServei().getId();
         this.usuariId = factura.getUsuari().getId();

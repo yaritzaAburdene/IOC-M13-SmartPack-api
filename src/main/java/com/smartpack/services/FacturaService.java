@@ -56,14 +56,16 @@ public class FacturaService {
         Factura factura;
         if (!facturaExist.isPresent()) {
             // Calcular preu
-            // TODO: comentar amb els companys el preu del servei
-            int preu = servei.getPaquet().getPes() * 2; // 2€ por kilo
-            int iva = (int) (preu * 0.21); // 21% de IVA
+            // 2€ es el estandar de correos
+            double preu = servei.getPaquet().getPes() * 2; // 2€ por kilo
+            double iva = preu * 0.21; // 21% de IVA
+            double total = preu + iva; // suma total
 
             factura = new Factura();
             factura.setNumFactura(UUID.randomUUID().toString().substring(0, 8).toUpperCase());
             factura.setPreu(preu);
             factura.setIva(iva);
+            factura.setTotal(total);
             factura.setData(new Date());
             factura.setServei(servei);
             factura.setUsuari(servei.getUsuari());

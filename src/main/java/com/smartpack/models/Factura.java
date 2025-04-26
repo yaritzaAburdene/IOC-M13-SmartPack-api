@@ -24,10 +24,13 @@ public class Factura {
     private String numFactura;
 
     @Column(nullable = false)
-    private int preu;
+    private double preu;
 
     @Column(nullable = false)
-    private int iva;
+    private double iva;
+
+    @Column(nullable = false)
+    private double total;
 
     @Column(nullable = false)
     private Date data;
