@@ -32,12 +32,13 @@ public class Paquet {
     @Column(nullable = false)
     private String nomDestinatari;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String adreçadestinatari;
 
     @Column(nullable = false)
     private String telefondestinatari;
 
+    @Lob
     @Column(nullable = true, columnDefinition = "LONGTEXT")
     private String codiqr;
 

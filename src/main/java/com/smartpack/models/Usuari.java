@@ -67,7 +67,7 @@ public class Usuari implements UserDetails {
     /**
      * Adreça
      */
-    @Column(nullable = false)
+    @Column(nullable = false, length = 500)
     private String adreça;
 
     /**
