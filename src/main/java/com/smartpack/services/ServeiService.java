@@ -256,7 +256,7 @@ public class ServeiService {
 
         servei.setEstat(nouEstat);
         serveiRepository.save(servei);
-        guardarCanviHistorial(servei, "ESTAT", "Estat canviat a ENVIAT");
+        guardarCanviHistorial(servei, "ESTAT", "Estat canviat a " + nouEstat);
 
         return convertirADto(servei);
     }
