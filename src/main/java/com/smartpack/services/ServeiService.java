@@ -24,6 +24,10 @@ import com.smartpack.repositories.ServeiHistorialRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 /**
@@ -38,6 +42,7 @@ public class ServeiService {
     private final PaquetRepository paquetRepository;
     private final QrCodeService qrCodeService;
     private final ServeiHistorialRepository serveiHistorialRepository;
+    private final EtiquetaService etiquetaService;
 
     /**
      * Constructor ServeiService
@@ -49,13 +54,15 @@ public class ServeiService {
      */
     public ServeiService(ServeiRepository serveiRepository, UsuariRepository usuariRepository,
             TransportistaRepository transportistaRepository, PaquetRepository paquetRepository,
-            QrCodeService qrCodeService, ServeiHistorialRepository serveiHistorialRepository) {
+            QrCodeService qrCodeService, ServeiHistorialRepository serveiHistorialRepository,
+            EtiquetaService etiquetaService) {
         this.serveiRepository = serveiRepository;
         this.usuariRepository = usuariRepository;
         this.transportistaRepository = transportistaRepository;
         this.paquetRepository = paquetRepository;
         this.qrCodeService = qrCodeService;
         this.serveiHistorialRepository = serveiHistorialRepository;
+        this.etiquetaService = etiquetaService;
     }
 
     /**
@@ -324,6 +331,52 @@ public class ServeiService {
         return historial.stream()
                 .map(ServeiHistorialDto::new)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * get Etiqueta
+     * Genera etiqueta i valida el servei
+     * 
+     * @param serveiId Long
+     * @return byte[]
+     */
+    public ResponseEntity<byte[]> getEtiqueta(Long serveiId) {
+
+        try {
+            Servei servei = serveiRepository.findById(serveiId)
+                    .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
+
+            Paquet paquet = servei.getPaquet();
+
+            String nom = paquet.getNomDestinatari();
+            String adreça = paquet.getAdreçadestinatari();
+            String telefon = paquet.getTelefondestinatari();
+
+            // el numero de paquet de moment per defecte es 1.
+            String textPaquet = "Servei #: " + serveiId + "  Paquet #: 1";
+            String textPes = "Pes: " + paquet.getPes() + "kg";
+            String textMida = "Mida: " + paquet.getMida() + "cm";
+            String details = paquet.getDetalls();
+
+            // Generar QR
+            // informació necessaria per afegir al qr
+            String textQR = "Servei Codi: [ " + servei.getId() + " ] " + nom + " - " + adreça + " - " +
+                    telefon;
+            byte[] qrBytes = qrCodeService.generateQrCodeImage(textQR, 150, 150);
+
+            // Generar etiqueta
+            byte[] etiquetaBytes = etiquetaService.generateEtiqueta(nom, adreça, telefon, textPaquet, textPes, textMida,
+                    details, qrBytes);
+
+            // Resposta HTTP
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.IMAGE_PNG);
+            headers.setContentLength(etiquetaBytes.length);
+
+            return new ResponseEntity<>(etiquetaBytes, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            throw new RuntimeException("Error generando l'etiqueta", e);
+        }
     }
 
     /**

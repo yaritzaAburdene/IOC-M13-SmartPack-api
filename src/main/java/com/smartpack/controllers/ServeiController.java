@@ -178,4 +178,16 @@ public class ServeiController {
         List<ServeiHistorialDto> historial = ServeiService.getHistorialPerServei(serveiId);
         return ResponseEntity.ok(historial);
     }
+
+    /**
+     * Get Etiqueta
+     * 
+     * @param id Long
+     * @return byte[]
+     */
+    @GetMapping("/{id}/etiqueta")
+    @Operation(summary = "Obté l'etiqueta d'un servei", description = "Generar l'etiqueta amb infor i QR amb Id service")
+    public ResponseEntity<byte[]> getEtiqueta(@PathVariable Long id) {
+        return ServeiService.getEtiqueta(id);
+    }
 }
