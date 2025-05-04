@@ -20,4 +20,11 @@ public interface ServeiHistorialRepository extends JpaRepository<ServeiHistorial
      * @return ServeiHistorial List
      */
     List<ServeiHistorial> findByServeiIdOrderByDataCanviAsc(Long serveiId);
+
+    /**
+     * Delete By ServeiId
+     * 
+     * @param serveiId Long
+     */
+    void deleteByServeiId(Long serveiId);
 }

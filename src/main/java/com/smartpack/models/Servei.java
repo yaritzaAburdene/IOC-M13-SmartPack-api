@@ -32,8 +32,8 @@ public class Servei {
     @JoinColumn(name = "transportista_id", nullable = true)
     private Transportista transportista;
 
-    @OneToOne
-    @JoinColumn(name = "paquet_id", referencedColumnName = "id", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "paquet_id", referencedColumnName = "id", nullable = true)
     private Paquet paquet;
 
     @Column(name = "active", nullable = false)

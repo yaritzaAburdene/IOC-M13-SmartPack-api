@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -189,5 +190,18 @@ public class ServeiController {
     @Operation(summary = "Obté l'etiqueta d'un servei", description = "Generar l'etiqueta amb infor i QR amb Id service")
     public ResponseEntity<byte[]> getEtiqueta(@PathVariable Long id) {
         return ServeiService.getEtiqueta(id);
+    }
+
+    /**
+     * Eliminar Servei
+     * 
+     * @param id Long
+     * @return ApiResponse
+     */
+    @DeleteMapping("/{id}")
+    @Operation(summary = "Elimina un servei ORDENAT", description = "Elimina el servei per Id només amb l'estat ORDENAT")
+    public ResponseEntity<ApiResponse> eliminarServei(@PathVariable Long id) {
+        ServeiService.eliminarServei(id);
+        return ResponseEntity.ok(new ApiResponse("Servei eliminat correctament."));
     }
 }

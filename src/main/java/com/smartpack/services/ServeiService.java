@@ -19,10 +19,12 @@ import com.smartpack.models.Usuari;
 import com.smartpack.repositories.ServeiRepository;
 import com.smartpack.repositories.TransportistaRepository;
 import com.smartpack.repositories.UsuariRepository;
+import com.smartpack.repositories.FacturaRepository;
 import com.smartpack.repositories.PaquetRepository;
 import com.smartpack.repositories.ServeiHistorialRepository;
 
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.transaction.annotation.Transactional;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -43,6 +45,7 @@ public class ServeiService {
     private final QrCodeService qrCodeService;
     private final ServeiHistorialRepository serveiHistorialRepository;
     private final EtiquetaService etiquetaService;
+    private final FacturaRepository facturaRepository;
 
     /**
      * Constructor ServeiService
@@ -55,7 +58,7 @@ public class ServeiService {
     public ServeiService(ServeiRepository serveiRepository, UsuariRepository usuariRepository,
             TransportistaRepository transportistaRepository, PaquetRepository paquetRepository,
             QrCodeService qrCodeService, ServeiHistorialRepository serveiHistorialRepository,
-            EtiquetaService etiquetaService) {
+            EtiquetaService etiquetaService, FacturaRepository facturaRepository) {
         this.serveiRepository = serveiRepository;
         this.usuariRepository = usuariRepository;
         this.transportistaRepository = transportistaRepository;
@@ -63,6 +66,7 @@ public class ServeiService {
         this.qrCodeService = qrCodeService;
         this.serveiHistorialRepository = serveiHistorialRepository;
         this.etiquetaService = etiquetaService;
+        this.facturaRepository = facturaRepository;
     }
 
     /**
@@ -377,6 +381,28 @@ public class ServeiService {
         } catch (Exception e) {
             throw new RuntimeException("Error generando l'etiqueta", e);
         }
+    }
+
+    /**
+     * Eliminar Servei
+     * 
+     * @param serveiId Long
+     */
+    @Transactional
+    public void eliminarServei(Long serveiId) {
+        Servei servei = serveiRepository.findById(serveiId)
+                .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
+
+        if (servei.getEstat() != Estat.ORDENAT) {
+            throw new IllegalStateException("Només es pot eliminar un servei amb estat ORDENAT.");
+        }
+
+        if (facturaRepository.existsByServeiId(serveiId)) {
+            throw new IllegalStateException("No es pot editar un servei que ja té una factura generada.");
+        }
+
+        serveiHistorialRepository.deleteByServeiId(serveiId);
+        serveiRepository.delete(servei);
     }
 
     /**
