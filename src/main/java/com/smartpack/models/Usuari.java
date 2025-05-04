@@ -47,6 +47,12 @@ public class Usuari implements UserDetails {
     private Rol role;
 
     /**
+     * DNI
+     */
+    @Column(nullable = true)
+    private String dni;
+
+    /**
      * nom
      */
     @Column(nullable = false)

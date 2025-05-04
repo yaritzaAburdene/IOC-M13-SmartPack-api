@@ -93,7 +93,6 @@ public class ServeiService {
         paquet.setNomDestinatari(request.getPaquet().getNomDestinatari());
         paquet.setAdreçadestinatari(request.getPaquet().getAdreçadestinatari());
         paquet.setTelefondestinatari(request.getPaquet().getTelefondestinatari());
-        paquetRepository.save(paquet);
 
         // Crear Servei
         Servei servei = new Servei();
@@ -183,7 +182,6 @@ public class ServeiService {
                 }
                 guardarCanviHistorial(servei, "MODIFICACIÓ", "Canvi destinatari");
             }
-            paquetRepository.save(paquet);
         }
 
         servei.setEstat(request.getEstat());
