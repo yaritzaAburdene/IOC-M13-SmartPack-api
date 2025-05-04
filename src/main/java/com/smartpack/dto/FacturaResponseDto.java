@@ -19,6 +19,9 @@ public class FacturaResponseDto {
     private Date data;
     private Long serveiId;
     private Long usuariId;
+    private String usuariDni;
+    private String usuariNomComplet;
+    private String usuariAdreça;
     private boolean pagat;
     private String metodePagament;
 
@@ -36,6 +39,9 @@ public class FacturaResponseDto {
         this.data = factura.getData();
         this.serveiId = factura.getServei().getId();
         this.usuariId = factura.getUsuari().getId();
+        this.usuariDni = factura.getUsuari().getDni();
+        this.usuariNomComplet = factura.getUsuari().getNom() + " " + factura.getUsuari().getCognom();
+        this.usuariAdreça = factura.getUsuari().getAdreça();
         this.pagat = factura.isPagat();
         this.metodePagament = factura.getMetodePagament();
     }

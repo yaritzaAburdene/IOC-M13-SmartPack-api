@@ -10,6 +10,7 @@ public class UserRequestDto {
     private String email;
     private String password;
     private String role;
+    private String dni;
     private String nom;
     private String cognom;
     private String telefon;

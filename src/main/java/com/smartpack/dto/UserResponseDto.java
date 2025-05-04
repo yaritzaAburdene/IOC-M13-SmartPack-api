@@ -9,6 +9,7 @@ import lombok.Data;
 public class UserResponseDto {
     private Long id;
     private String email;
+    private String dni;
     private String nom;
     private String cognom;
     private String telefon;

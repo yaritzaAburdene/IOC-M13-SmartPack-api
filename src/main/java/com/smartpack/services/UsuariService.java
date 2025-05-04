@@ -101,6 +101,7 @@ public class UsuariService {
         Usuari usuari = new Usuari();
         usuari.setEmail(request.getEmail());
         usuari.setPassword(passwordEncoder.encode(request.getPassword()));
+        usuari.setDni(request.getDni());
         usuari.setNom(request.getNom());
         usuari.setCognom(request.getCognom());
         usuari.setTelefon(request.getTelefon());
@@ -148,6 +149,9 @@ public class UsuariService {
         }
         if (request.getPassword() != null) {
             user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+        if (request.getDni() != null) {
+            user.setDni(request.getDni());
         }
         if (request.getNom() != null) {
             user.setNom(request.getNom());
@@ -204,6 +208,7 @@ public class UsuariService {
         UserResponseDto dto = new UserResponseDto();
         dto.setId(user.getId());
         dto.setEmail(user.getEmail());
+        dto.setDni(user.getDni());
         dto.setNom(user.getNom());
         dto.setCognom(user.getCognom());
         dto.setTelefon(user.getTelefon());
