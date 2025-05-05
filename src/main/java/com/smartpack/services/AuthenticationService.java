@@ -50,6 +50,7 @@ public class AuthenticationService {
         Usuari usuari = new Usuari();
         usuari.setEmail(request.getEmail());
         usuari.setPassword(passwordEncoder.encode(request.getPassword()));
+        usuari.setDni(request.getDni());
         usuari.setNom(request.getNom());
         usuari.setCognom(request.getCognom());
         usuari.setTelefon(request.getTelefon());

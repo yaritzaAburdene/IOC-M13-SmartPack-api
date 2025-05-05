@@ -15,6 +15,8 @@ public class RegistrarUsuariDto {
 
     private String role;
 
+    private String dni;
+
     private String nom;
 
     private String cognom;
@@ -81,6 +83,24 @@ public class RegistrarUsuariDto {
      */
     public void setRole(String role) {
         this.role = role;
+    }
+
+    /**
+     * Get DNI
+     * 
+     * @return String
+     */
+    public String getDni() {
+        return dni;
+    }
+
+    /**
+     * Set DNI
+     * 
+     * @param dni String
+     */
+    public void setDni(String dni) {
+        this.dni = dni;
     }
 
     /**
