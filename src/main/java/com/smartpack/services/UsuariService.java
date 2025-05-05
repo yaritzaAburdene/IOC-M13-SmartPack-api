@@ -187,6 +187,31 @@ public class UsuariService {
     }
 
     /**
+     * filtrarUsuaris
+     * 
+     * @param rol   String
+     * @param nom   String
+     * @param email String
+     * @return UserResponseDto
+     */
+    public List<UserResponseDto> filtrarUsuaris(String rol, String nom, String email) {
+        List<Usuari> usuaris = usuariRepository.findAll();
+
+        return usuaris.stream()
+                .filter(u -> {
+                    if (rol == null)
+                        return true;
+                    String rolBuscat = rol.toUpperCase().startsWith("ROLE_") ? rol.toUpperCase()
+                            : "ROLE_" + rol.toUpperCase();
+                    return u.getRole().name().equals(rolBuscat);
+                })
+                .filter(u -> nom == null || u.getNom().toLowerCase().contains(nom.toLowerCase()))
+                .filter(u -> email == null || u.getEmail().toLowerCase().contains(email.toLowerCase()))
+                .map(this::convertToResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    /**
      * Desactivar Usuari
      * 
      * @param id long

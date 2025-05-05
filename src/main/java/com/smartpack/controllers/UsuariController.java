@@ -91,6 +91,23 @@ public class UsuariController {
     }
 
     /**
+     * filtrarUsuaris
+     * 
+     * @param rol   String
+     * @param nom   String
+     * @param email String
+     * @return UserResponseDto List
+     */
+    @GetMapping("/filtrar")
+    @Operation(summary = "Filtrar usuaris", description = "Filtra usuaris per rol, nom o email")
+    public ResponseEntity<List<UserResponseDto>> filtrarUsuaris(
+            @RequestParam(required = false) String rol,
+            @RequestParam(required = false) String nom,
+            @RequestParam(required = false) String email) {
+        return ResponseEntity.ok(usuariService.filtrarUsuaris(rol, nom, email));
+    }
+
+    /**
      * Get User By Id
      * Obtenir usuari per ID
      * 
