@@ -89,6 +89,18 @@ public class TransportistaController {
     }
 
     /**
+     * getAllTransportistes
+     * 
+     * @return TransportistaResponseDto List
+     */
+    @GetMapping("/list")
+    @Operation(summary = "Obtenir tots els transportistes", description = "Mostrar tots els transportistes activats")
+    public ResponseEntity<List<TransportistaResponseDto>> getAllTransportistes() {
+        List<TransportistaResponseDto> transportista = transportistaService.getAllTransportistes();
+        return ResponseEntity.ok(transportista);
+    }
+
+    /**
      * Obtenir transportista per Usuari
      * Obtenir transportista per Id Usuari
      * 

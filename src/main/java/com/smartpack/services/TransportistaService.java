@@ -1,6 +1,7 @@
 package com.smartpack.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -120,6 +121,17 @@ public class TransportistaService {
                 .orElseThrow(() -> new EntityNotFoundException("Transportista no trobat"));
 
         return convertirADto(transportista);
+    }
+
+    /**
+     * getAllTransportistes
+     * 
+     * @return TransportistaResponseDto
+     */
+    public List<TransportistaResponseDto> getAllTransportistes() {
+        return transportistaRepository.findByActiveTrue().stream()
+                .map(this::convertirADto)
+                .collect(Collectors.toList());
     }
 
     /**

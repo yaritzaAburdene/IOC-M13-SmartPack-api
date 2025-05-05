@@ -15,6 +15,13 @@ import org.springframework.stereotype.Repository;
 public interface TransportistaRepository extends JpaRepository<Transportista, Long> {
 
     /**
+     * findByActiveTrue
+     * 
+     * @return Transportista List
+     */
+    List<Transportista> findByActiveTrue();
+
+    /**
      * findByUsuariId
      * 
      * @param usuariId Long
