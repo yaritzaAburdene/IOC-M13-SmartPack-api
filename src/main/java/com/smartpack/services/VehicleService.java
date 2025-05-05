@@ -37,6 +37,8 @@ public class VehicleService {
         vehicle.setMarca(dto.getMarca());
         vehicle.setModel(dto.getModel());
         vehicle.setMatricula(dto.getMatricula());
+        vehicle.setColor(dto.getColor());
+        vehicle.setTipus(dto.getTipus());
         return convertirADto(vehicleRepository.save(vehicle));
     }
 
@@ -53,6 +55,8 @@ public class VehicleService {
         vehicle.setMarca(dto.getMarca());
         vehicle.setModel(dto.getModel());
         vehicle.setMatricula(dto.getMatricula());
+        vehicle.setColor(dto.getColor());
+        vehicle.setTipus(dto.getTipus());
         return convertirADto(vehicleRepository.save(vehicle));
     }
 
@@ -103,6 +107,8 @@ public class VehicleService {
         dto.setMarca(vehicle.getMarca());
         dto.setModel(vehicle.getModel());
         dto.setMatricula(vehicle.getMatricula());
+        dto.setColor(vehicle.getColor());
+        dto.setTipus(vehicle.getTipus());
         return dto;
     }
 }

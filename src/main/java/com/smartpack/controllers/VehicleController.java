@@ -100,7 +100,8 @@ public class VehicleController {
      * 
      * @return VehicleDto List
      */
-    @GetMapping
+    @GetMapping("/list")
+    @Operation(summary = "Obtenir tots els vehicles", description = "Obtenir un llistat de tots els vehicles")
     public ResponseEntity<List<VehicleDto>> llistar() {
         return ResponseEntity.ok(vehicleService.llistarVehicles());
     }

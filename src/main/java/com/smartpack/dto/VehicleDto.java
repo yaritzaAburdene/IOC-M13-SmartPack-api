@@ -13,4 +13,6 @@ public class VehicleDto {
     private String model;
     @NotBlank
     private String matricula;
+    private String color;
+    private String tipus;
 }
