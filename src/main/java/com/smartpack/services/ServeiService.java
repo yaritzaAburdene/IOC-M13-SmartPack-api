@@ -246,6 +246,29 @@ public class ServeiService {
     }
 
     /**
+     * assignarTransportista
+     * 
+     * @param serveiId        Long
+     * @param transportistaId Long
+     * @return ServeiResponseDto
+     */
+    @Transactional
+    public ServeiResponseDto assignarTransportista(Long serveiId, Long transportistaId) {
+        Servei servei = serveiRepository.findById(serveiId)
+                .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
+
+        Transportista transportista = transportistaRepository.findById(transportistaId)
+                .orElseThrow(() -> new EntityNotFoundException("Transportista no trobat"));
+
+        servei.setTransportista(transportista);
+        serveiRepository.save(servei);
+        guardarCanviHistorial(servei, "Assignació de transportista",
+                "S'ha assignat el transportista amb ID: " + transportistaId);
+
+        return convertirADto(servei);
+    }
+
+    /**
      * canviarEstatServei
      * 
      * @param serveiId Long

@@ -101,6 +101,21 @@ public class ServeiController {
     }
 
     /**
+     * assignarTransportista
+     * 
+     * @param serveiId        Long
+     * @param transportistaId Long
+     * @return ServeiResponseDto
+     */
+    @PutMapping("/{id}/assignar-transportista/{transportistaId}")
+    @Operation(summary = "Assignar transportista a un servei")
+    public ResponseEntity<ServeiResponseDto> assignarTransportista(
+            @PathVariable Long id,
+            @PathVariable Long transportistaId) {
+        return ResponseEntity.ok(ServeiService.assignarTransportista(id, transportistaId));
+    }
+
+    /**
      * canviarEstatServei
      * 
      * @param serveiId Long
