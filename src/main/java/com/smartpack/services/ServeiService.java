@@ -5,6 +5,7 @@ import java.util.Base64;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.smartpack.dto.ConfirmacioEntregaDto;
 import com.smartpack.dto.PaquetRequestDto;
 import com.smartpack.dto.PaquetResponseDto;
 import com.smartpack.dto.ServeiHistorialDto;
@@ -424,6 +425,31 @@ public class ServeiService {
 
         serveiHistorialRepository.deleteByServeiId(serveiId);
         serveiRepository.delete(servei);
+    }
+
+    /**
+     * confirmarEntrega
+     * 
+     * @param serveiId Long
+     * @param dto      Long
+     */
+    @Transactional
+    public void confirmarEntrega(Long serveiId, ConfirmacioEntregaDto dto) {
+        Servei servei = serveiRepository.findById(serveiId)
+                .orElseThrow(() -> new EntityNotFoundException("Servei no trobat"));
+
+        if (servei.getEstat() != Estat.TRANSIT) {
+            throw new IllegalStateException("El servei no està en estat TRANSIT");
+        }
+
+        String telefonCorrecte = servei.getPaquet().getTelefondestinatari();
+
+        if (!telefonCorrecte.equals(dto.getTelefonDestinatari())) {
+            throw new IllegalArgumentException("El telèfon no coincideix");
+        }
+
+        servei.setEstat(Estat.ENTREGAT);
+        serveiRepository.save(servei);
     }
 
     /**

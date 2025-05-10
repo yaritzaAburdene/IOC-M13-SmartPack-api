@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.smartpack.dto.ApiResponse;
 import com.smartpack.dto.CanviarEstatServeiRequestDto;
+import com.smartpack.dto.ConfirmacioEntregaDto;
 import com.smartpack.dto.ServeiHistorialDto;
 import com.smartpack.dto.ServeiRequestDto;
 import com.smartpack.dto.ServeiResponseDto;
@@ -218,5 +219,20 @@ public class ServeiController {
     public ResponseEntity<ApiResponse> eliminarServei(@PathVariable Long id) {
         ServeiService.eliminarServei(id);
         return ResponseEntity.ok(new ApiResponse("Servei eliminat correctament."));
+    }
+
+    /**
+     * confirmar Entrega
+     * 
+     * @param id
+     * @param confirmacio
+     * @return
+     */
+    @PostMapping("/{id}/confirmar")
+    @Operation(summary = "Confirma entrega servei", description = "Confirma entrega servei amb l'estat TRANSIT")
+    public ResponseEntity<ApiResponse> confirmarEntrega(@PathVariable Long id,
+            @RequestBody ConfirmacioEntregaDto confirmacio) {
+        ServeiService.confirmarEntrega(id, confirmacio);
+        return ResponseEntity.ok(new ApiResponse("Servei confirmat correctament"));
     }
 }
