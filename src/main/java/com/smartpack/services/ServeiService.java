@@ -51,10 +51,14 @@ public class ServeiService {
     /**
      * Constructor ServeiService
      * 
-     * @param serveiRepository        ServeiRepository
-     * @param usuariRepository        UsuariRepository
-     * @param transportistaRepository TransportistaRepository
-     * @param paquetRepository        PaquetRepository
+     * @param serveiRepository          ServeiRepository
+     * @param usuariRepository          UsuariRepository
+     * @param transportistaRepository   TransportistaRepository
+     * @param paquetRepository          PaquetRepository
+     * @param qrCodeService             QrCodeService
+     * @param serveiHistorialRepository ServeiHistorialRepository
+     * @param etiquetaService           EtiquetaService
+     * @param facturaRepository         FacturaRepository
      */
     public ServeiService(ServeiRepository serveiRepository, UsuariRepository usuariRepository,
             TransportistaRepository transportistaRepository, PaquetRepository paquetRepository,
@@ -350,7 +354,7 @@ public class ServeiService {
      * getHistorialPerServei
      * 
      * @param serveiId Long
-     * @return
+     * @return ServeiHistorial List
      */
     public List<ServeiHistorialDto> getHistorialPerServei(Long serveiId) {
         List<ServeiHistorial> historial = serveiHistorialRepository.findByServeiIdOrderByDataCanviAsc(serveiId);

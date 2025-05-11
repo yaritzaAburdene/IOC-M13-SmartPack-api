@@ -2,8 +2,6 @@ package com.smartpack.dto;
 
 import java.util.Date;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import com.smartpack.models.Factura;
 import com.smartpack.models.MetodePagament;
 

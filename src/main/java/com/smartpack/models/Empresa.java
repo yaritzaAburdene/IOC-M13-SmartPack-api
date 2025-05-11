@@ -39,9 +39,6 @@ public class Empresa {
     @OneToMany(mappedBy = "empresa")
     private List<Usuari> usuaris;
 
-    /**
-     * Activacio empresa
-     */
     @Column(name = "active", nullable = false)
     private boolean active = true;
 

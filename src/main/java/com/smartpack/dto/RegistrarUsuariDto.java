@@ -231,7 +231,7 @@ public class RegistrarUsuariDto {
      * Set Compte bancari
      * modificar compteBancari
      * 
-     * @param secret String
+     * @param compteBancari String
      */
     public void setCompteBancari(String compteBancari) {
         this.compteBancari = compteBancari;

@@ -31,6 +31,12 @@ public interface UsuariRepository extends JpaRepository<Usuari, Long> {
      */
     Optional<Usuari> findByResetToken(String resetToken);
 
+    /**
+     * findByEmpresaId
+     * 
+     * @param empresaId Long
+     * @return Usuari List
+     */
     List<Usuari> findByEmpresaId(Long empresaId);
 
 }

@@ -37,6 +37,12 @@ public interface ServeiRepository extends JpaRepository<Servei, Long> {
      */
     List<Servei> findByUsuariIdAndActiveTrue(Long usuariId);
 
+    /**
+     * findByTransportistaIdAndActiveTrue
+     * 
+     * @param transportistaId Long
+     * @return Servei List
+     */
     List<Servei> findByTransportistaIdAndActiveTrue(Long transportistaId);
 
     /**

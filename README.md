@@ -40,7 +40,6 @@ mvn clean package
 - `GET /usuari/{id}` - Obtenir detalls d'un usuari.
 - `POST /usuari` - Crear un nou usuari.
 - `PUT /usuari/{id}` - Actualitzar un usuari.
-- `DELETE /usuari/{id}` - Eliminar un usuari.
 
 ## 🧪 Test
 

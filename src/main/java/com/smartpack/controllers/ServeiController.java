@@ -49,7 +49,8 @@ public class ServeiController {
     }
 
     /**
-     * crearServei
+     * Crear Servei
+     * Crea un servei amb dades de paquet i permet fer assignacio també.
      * 
      * @param request ServeiRequestDto
      * @return ServeiResponseDto
@@ -62,7 +63,8 @@ public class ServeiController {
     }
 
     /**
-     * editarServei
+     * Editar Servei
+     * Edita un servei per ID.
      * 
      * @param id      Long
      * @param request ServeiRequestDto
@@ -77,7 +79,8 @@ public class ServeiController {
     }
 
     /**
-     * getAllServeis
+     * Get All Serveis
+     * Obté tots els serveis
      * 
      * @return ServeiResponseDto List
      */
@@ -89,7 +92,8 @@ public class ServeiController {
     }
 
     /**
-     * getServeiById
+     * Get Servei By Id
+     * Obté un servei per ID
      * 
      * @param id Long
      * @return ServeiResponseDto
@@ -102,9 +106,10 @@ public class ServeiController {
     }
 
     /**
-     * assignarTransportista
+     * Assignar Transportista
+     * Metode que assigna un transportista a un servei
      * 
-     * @param serveiId        Long
+     * @param id              Long
      * @param transportistaId Long
      * @return ServeiResponseDto
      */
@@ -117,7 +122,8 @@ public class ServeiController {
     }
 
     /**
-     * canviarEstatServei
+     * Canviar Estat Servei
+     * Metodo per canviar l'estat d'un servei per ID
      * 
      * @param serveiId Long
      * @param request  CanviarEstatServeiRequestDto
@@ -132,7 +138,8 @@ public class ServeiController {
     }
 
     /**
-     * obtenirServeisPerUsuari
+     * Obtenir Serveis Per Usuari
+     * Obté el servei carcat per usuari ID
      * 
      * @param usuariId Long
      * @return ServeiResponseDto List
@@ -145,7 +152,8 @@ public class ServeiController {
     }
 
     /**
-     * obtenirServeisPerTransportista
+     * Obtenir Serveis Per Transportista
+     * Obté el servei carcat per transportista ID
      * 
      * @param transportistaId Long
      * @return ServeiResponseDto List
@@ -158,7 +166,8 @@ public class ServeiController {
     }
 
     /**
-     * desactivarServei
+     * Desactivar Servei
+     * Desactiva un servei per servei ID
      * 
      * @param id Long
      * @return ApiResponse
@@ -171,7 +180,8 @@ public class ServeiController {
     }
 
     /**
-     * regenerarQrPerServei
+     * Regenerar QR Per Servei
+     * Metode que genera un qr d'un servei
      * 
      * @param id Long
      * @return ServeiResponseDto
@@ -184,7 +194,8 @@ public class ServeiController {
     }
 
     /**
-     * getHistorialPerServei
+     * Get Historial Per Servei
+     * obté un listat de l'historial d'un servei
      * 
      * @param serveiId Long
      * @return ServeiHistorialDto List
@@ -198,6 +209,7 @@ public class ServeiController {
 
     /**
      * Get Etiqueta
+     * Genera una imaget d'etiqueta amb la informació del servei
      * 
      * @param id Long
      * @return byte[]
@@ -210,6 +222,7 @@ public class ServeiController {
 
     /**
      * Eliminar Servei
+     * Elimina un servei per ID nomes amb l'estat ORDENAT.
      * 
      * @param id Long
      * @return ApiResponse
@@ -222,11 +235,12 @@ public class ServeiController {
     }
 
     /**
-     * confirmar Entrega
+     * Confirmar Entrega
+     * Metode per confirmar l'entrega al destinatari
      * 
-     * @param id
-     * @param confirmacio
-     * @return
+     * @param id          Long
+     * @param confirmacio ConfirmacioEntregaDto
+     * @return ApiResponse
      */
     @PostMapping("/{id}/confirmar")
     @Operation(summary = "Confirma entrega servei", description = "Confirma entrega servei amb l'estat TRANSIT")

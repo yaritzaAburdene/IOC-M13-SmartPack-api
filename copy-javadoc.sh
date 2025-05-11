@@ -1,12 +1,12 @@
 #!/bin/bash
-echo "Eliminando javadoc anterior..."
+echo "Eliminant javadoc anterior..."
 rm -rf src/main/resources/static/javadoc
 
-echo "Generando JavaDoc..."
+echo "Generant JavaDoc..."
 mvn javadoc:javadoc
 
-echo "Copiando a static..."
+echo "Copian a static..."
 mkdir -p src/main/resources/static/javadoc
 cp -r target/reports/apidocs/* src/main/resources/static/javadoc/
 
-echo "¡Hecho! Puedes acceder a http://localhost:8080/javadoc/index.html"
+echo "Fet! Pots accedir a http://localhost:8080/javadoc/index.html"

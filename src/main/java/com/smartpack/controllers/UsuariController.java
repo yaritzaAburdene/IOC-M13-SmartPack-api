@@ -36,6 +36,7 @@ public class UsuariController {
 
     /**
      * Usuari autenticat
+     * Obte la informació l'usuari autenticat
      * 
      * @param authentication Authentication
      * @return UserResponseDto
@@ -91,7 +92,8 @@ public class UsuariController {
     }
 
     /**
-     * filtrarUsuaris
+     * Filtrar Usuaris
+     * Obté un llistat d'usuaris filtrats
      * 
      * @param rol   String
      * @param nom   String

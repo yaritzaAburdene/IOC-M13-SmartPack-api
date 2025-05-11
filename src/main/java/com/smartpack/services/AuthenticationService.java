@@ -59,13 +59,13 @@ public class AuthenticationService {
         usuari.setActive(true);
 
         if (request.getAdreça() == null || request.getAdreça().isEmpty()) {
-            usuari.setAdreça("No especificat"); // Valor por defecto
+            usuari.setAdreça("No especificat"); // Valor per defecto
         } else {
             usuari.setAdreça(request.getAdreça());
         }
 
         if (request.getRole() == null || request.getRole().isEmpty()) {
-            usuari.setRole(Rol.ROLE_USER); // Valor por defecto
+            usuari.setRole(Rol.ROLE_USER); // Valor per defecto
         } else {
             try {
                 usuari.setRole(Rol.valueOf(request.getRole())); // Convierte String a

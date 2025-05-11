@@ -29,7 +29,7 @@ public class EtiquetaService {
      * @param detalls    String
      * @param qrBytes    byte[]
      * @return byte[]
-     * @throws Exception
+     * @throws Exception Error al generar etiqueta
      */
     public byte[] generateEtiqueta(String nombre, String adreça, String telefon, String textPaquet,
             String textPes, String textMida, String detalls, byte[] qrBytes) throws Exception {
@@ -64,7 +64,7 @@ public class EtiquetaService {
      * @param textMida   String
      * @param detalls    String
      * @param qrBytes    byte[]
-     * @throws Exception
+     * @throws Exception Error al generar etiqueta
      */
     public void crearImatge(BufferedImage etiqueta, int width, int height, String nombre, String adreça,
             String telefon, String textPaquet, String textPes, String textMida, String detalls, byte[] qrBytes)

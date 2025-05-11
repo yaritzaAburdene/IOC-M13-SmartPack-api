@@ -97,6 +97,7 @@ public class VehicleController {
 
     /**
      * llistar Vehicles
+     * Obté tots els vehicles en un llistat
      * 
      * @return VehicleDto List
      */

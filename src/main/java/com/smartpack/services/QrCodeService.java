@@ -25,7 +25,7 @@ public class QrCodeService {
      * @param width  int
      * @param height int
      * @return byte
-     * @throws Exception
+     * @throws Exception Error al generar imatge QR
      */
     public byte[] generateQrCodeImage(String text, int width, int height) throws Exception {
         QRCodeWriter qrCodeWriter = new QRCodeWriter();

@@ -1,7 +1,5 @@
 package com.smartpack.services;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -80,11 +78,8 @@ public class AdminService {
     }
 
     /**
-     * getAllFactures
+     * Get All Factures
      * 
-     * @param usuariId Long
-     * @param desde    LocalDate
-     * @param fins     LocalDate
      * @return FacturaResponseDto List
      */
     public List<FacturaResponseDto> getAllFactures() {

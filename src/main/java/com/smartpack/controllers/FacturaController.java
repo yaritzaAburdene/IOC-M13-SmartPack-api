@@ -34,12 +34,18 @@ public class FacturaController {
 
     private final FacturaService facturaService;
 
+    /**
+     * Constructor FacturaController
+     * 
+     * @param facturaService FacturaService
+     */
     public FacturaController(FacturaService facturaService) {
         this.facturaService = facturaService;
     }
 
     /**
-     * generarFactura
+     * Generar Factura
+     * Genera un factura d'un servei en concret
      * 
      * @param serveiId Long
      * @return FacturaResponseDto
@@ -52,20 +58,21 @@ public class FacturaController {
     }
 
     /**
-     * marcarFacturaComPagada
+     * Mararcar Factura Com Pagada
+     * Marca la facgura com pagada d'un servei
      * 
      * @param id Long
      * @return ApiResponse
      */
     @PutMapping("/{id}/pagar")
-    @Operation(summary = "Pagar una factura", description = "Genera un factura per ID servei.")
+    @Operation(summary = "Pagar una factura", description = "Pagar factura per ID servei.")
     public ResponseEntity<ApiResponse> marcarFacturaComPagada(@PathVariable Long id) {
-        FacturaResponseDto factura = facturaService.pagar(id);
+        facturaService.pagar(id);
         return ResponseEntity.ok(new ApiResponse("Factura pagada"));
     }
 
     /**
-     * getFacturaPerServei
+     * Get Factura Per Servei
      * 
      * @param serveiId Long
      * @return FacturaResponseDto
@@ -78,7 +85,8 @@ public class FacturaController {
     }
 
     /**
-     * getFacturesFiltrades
+     * Get Factures Filtrades
+     * Retorna totes les factures filtrades per parametres enviats.
      * 
      * @param usuariId Long
      * @param desde    DateTimeFormat

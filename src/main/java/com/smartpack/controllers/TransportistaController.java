@@ -144,6 +144,7 @@ public class TransportistaController {
 
     /**
      * Desassignar un vehicle
+     * Pertmet desassignar un vehicle d'un transportista
      * 
      * @param id Long
      * @return ApiResponse

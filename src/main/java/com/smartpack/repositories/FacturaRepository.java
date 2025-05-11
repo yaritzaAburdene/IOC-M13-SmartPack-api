@@ -9,6 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import com.smartpack.models.Factura;
 
+/**
+ * Interficie FacturaRepository
+ */
 @Repository
 public interface FacturaRepository extends JpaRepository<Factura, Long> {
 

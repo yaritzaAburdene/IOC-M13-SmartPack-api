@@ -1,15 +1,15 @@
 @echo off
-echo Eliminando javadoc anterior...
+echo Eliminat javadoc anterior...
 if exist src\main\resources\static\javadoc (
-    rmdir /S /Q src\main\resources\static\javadoc
+    rmdir /S /Q src\main\resources\static\javadoc
 )
 
-echo Generando JavaDoc...
+echo Generant JavaDoc...
 call mvn clean javadoc:javadoc
 
-echo Copiando a static...
+echo Copian a static...
 mkdir src\main\resources\static\javadoc 2>nul
 xcopy /E /Y target\reports\apidocs\* src\main\resources\static\javadoc\
 
-echo ¡Hecho! Puedes acceder a http://localhost:8080/javadoc/index.html
+echo Fet! Pots accedir a http://localhost:8080/javadoc/index.html
 pause
