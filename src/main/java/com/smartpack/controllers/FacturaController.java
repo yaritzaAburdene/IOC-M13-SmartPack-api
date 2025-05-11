@@ -71,7 +71,7 @@ public class FacturaController {
      * @return FacturaResponseDto
      */
     @GetMapping("/servei/{serveiId}")
-    @Operation(summary = "Obtenir factura", description = "Obé la factura per servei ID.")
+    @Operation(summary = "Obtenir factura", description = "Obté la factura per servei ID.")
     public ResponseEntity<FacturaResponseDto> getFacturaPerServei(@PathVariable Long serveiId) {
         FacturaResponseDto factura = facturaService.getFacturaPerServei(serveiId);
         return ResponseEntity.ok(factura);

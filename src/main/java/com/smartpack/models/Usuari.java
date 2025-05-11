@@ -89,6 +89,12 @@ public class Usuari implements UserDetails {
     private String secret;
 
     /**
+     * compteBancari
+     */
+    @Column(name = "compte_bancari")
+    private String compteBancari;
+
+    /**
      * Empresa asociada a usuaio opcional
      */
     @ManyToOne(optional = true)

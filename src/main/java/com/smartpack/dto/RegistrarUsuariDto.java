@@ -29,6 +29,8 @@ public class RegistrarUsuariDto {
 
     private String secret;
 
+    private String compteBancari;
+
     /**
      * Get Email
      * Obtenir email
@@ -213,6 +215,26 @@ public class RegistrarUsuariDto {
      */
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    /**
+     * Get Compte bancari
+     * Obtenir compteBancari
+     * 
+     * @return String
+     */
+    public String getCompteBancari() {
+        return compteBancari;
+    }
+
+    /**
+     * Set Compte bancari
+     * modificar compteBancari
+     * 
+     * @param secret String
+     */
+    public void setCompteBancari(String compteBancari) {
+        this.compteBancari = compteBancari;
     }
 
 }

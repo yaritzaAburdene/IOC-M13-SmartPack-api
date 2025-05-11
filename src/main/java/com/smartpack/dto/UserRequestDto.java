@@ -17,4 +17,5 @@ public class UserRequestDto {
     private String adreça;
     private String observacio;
     private String secret;
+    private String compteBancari;
 }

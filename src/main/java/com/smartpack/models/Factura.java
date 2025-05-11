@@ -38,8 +38,9 @@ public class Factura {
     @Column(nullable = false)
     private boolean pagat = false;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "metode_pagament")
-    private String metodePagament;
+    private MetodePagament metodePagament;
 
     @OneToOne
     @JoinColumn(name = "servei_id", nullable = false, unique = true)

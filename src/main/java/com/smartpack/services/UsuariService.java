@@ -107,6 +107,7 @@ public class UsuariService {
         usuari.setTelefon(request.getTelefon());
         usuari.setObservacio(request.getObservacio());
         usuari.setSecret(request.getSecret());
+        usuari.setCompteBancari(request.getCompteBancari());
         usuari.setActive(true);
 
         if (request.getAdreça() == null || request.getAdreça().isEmpty()) {
@@ -172,6 +173,10 @@ public class UsuariService {
 
         if (request.getSecret() != null) {
             user.setSecret(request.getSecret());
+        }
+
+        if (request.getCompteBancari() != null) {
+            user.setCompteBancari(request.getCompteBancari());
         }
 
         if (request.getRole() != null) {
@@ -240,6 +245,7 @@ public class UsuariService {
         dto.setAdreça(user.getAdreça());
         dto.setObservacio(user.getObservacio());
         dto.setEmpresaId(user.getEmpresa() != null ? user.getEmpresa().getId() : null);
+        dto.setCompteBancari(user.getCompteBancari());
         return dto;
     }
 }

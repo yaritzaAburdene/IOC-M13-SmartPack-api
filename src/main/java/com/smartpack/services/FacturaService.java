@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.smartpack.dto.FacturaResponseDto;
 import com.smartpack.models.Estat;
 import com.smartpack.models.Factura;
+import com.smartpack.models.MetodePagament;
 import com.smartpack.models.Servei;
 import com.smartpack.repositories.FacturaRepository;
 import com.smartpack.repositories.ServeiRepository;
@@ -69,6 +70,13 @@ public class FacturaService {
             factura.setData(new Date());
             factura.setServei(servei);
             factura.setUsuari(servei.getUsuari());
+
+            // Determinar el mètode de pagament
+            if (servei.getUsuari().getCompteBancari() != null && !servei.getUsuari().getCompteBancari().isBlank()) {
+                factura.setMetodePagament(MetodePagament.DOMICILIACIO);
+            } else {
+                factura.setMetodePagament(MetodePagament.TRANSFERENCIA);
+            }
 
             facturaRepository.save(factura);
         } else {

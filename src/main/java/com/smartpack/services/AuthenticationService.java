@@ -55,6 +55,7 @@ public class AuthenticationService {
         usuari.setCognom(request.getCognom());
         usuari.setTelefon(request.getTelefon());
         usuari.setSecret(request.getSecret());
+        usuari.setCompteBancari(request.getCompteBancari());
         usuari.setActive(true);
 
         if (request.getAdreça() == null || request.getAdreça().isEmpty()) {

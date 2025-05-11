@@ -16,4 +16,5 @@ public class UserResponseDto {
     private String adreça;
     private String observacio;
     private Long empresaId;
+    private String compteBancari;
 }

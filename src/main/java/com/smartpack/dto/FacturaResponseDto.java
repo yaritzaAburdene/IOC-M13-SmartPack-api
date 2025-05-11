@@ -2,7 +2,10 @@ package com.smartpack.dto;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import com.smartpack.models.Factura;
+import com.smartpack.models.MetodePagament;
 
 import lombok.Data;
 
@@ -23,7 +26,9 @@ public class FacturaResponseDto {
     private String usuariNomComplet;
     private String usuariAdreça;
     private boolean pagat;
-    private String metodePagament;
+    private MetodePagament metodePagament;
+    private String comptePerDomiciliacio;
+    private String compteEmpresa;
 
     /**
      * FacturaResponseDto
@@ -44,5 +49,9 @@ public class FacturaResponseDto {
         this.usuariAdreça = factura.getUsuari().getAdreça();
         this.pagat = factura.isPagat();
         this.metodePagament = factura.getMetodePagament();
+        this.comptePerDomiciliacio = factura.getUsuari().getCompteBancari();
+        if (factura.getMetodePagament() == MetodePagament.TRANSFERENCIA) {
+            this.compteEmpresa = "ES12 3456 7890 1234 5678 9012"; // aquest compte es inventat
+        }
     }
 }
